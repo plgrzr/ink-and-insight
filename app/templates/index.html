@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="upload-container">
+    <form id="upload-form" enctype="multipart/form-data">
+        <div class="file-inputs">
+            <div class="file-input">
+                <label for="file1">PDF Document 1:</label>
+                <input type="file" id="file1" name="file1" accept=".pdf" required>
+            </div>
+            
+            <div class="file-input">
+                <label for="file2">PDF Document 2:</label>
+                <input type="file" id="file2" name="file2" accept=".pdf" required>
+            </div>
+        </div>
+        
+        <div class="weight-slider">
+            <label for="weight-text">Text vs. Handwriting Weight:</label>
+            <input type="range" id="weight-text" name="weight_text" 
+                   min="0" max="1" step="0.1" value="0.5">
+            <div class="weight-labels">
+                <span>Handwriting</span>
+                <span>Text</span>
+            </div>
+        </div>
+        
+        <button type="submit">Compare PDFs</button>
+    </form>
+</div>
+
+<div id="results" class="results-container" style="display: none;">
+    <h2>Similarity Analysis Results</h2>
+    <div class="similarity-scores">
+        <div class="score">
+            <h3>Text Similarity</h3>
+            <div class="score-value" id="text-similarity"></div>
+        </div>
+        <div class="score">
+            <h3>Handwriting Similarity</h3>
+            <div class="score-value" id="handwriting-similarity"></div>
+        </div>
+        <div class="score">
+            <h3>Overall Similarity Index</h3>
+            <div class="score-value" id="similarity-index"></div>
+        </div>
+    </div>
+    <div class="report-download">
+        <a id="report-link" href="#" class="download-button">Download Report</a>
+    </div>
+</div>
+{% endblock %} 
