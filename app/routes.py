@@ -67,7 +67,7 @@ def compare_pdfs():
 
         # Calculate similarities
         text_similarity = compute_text_similarity(text1, text2)
-        handwriting_similarity = compute_handwriting_similarity(filepath1, filepath2)
+        handwriting_similarity, feature_scores, anomalies1, anomalies2 = compute_handwriting_similarity(filepath1, filepath2)
 
         # Calculate weighted similarity index
         weight_text = float(request.form.get('weight_text', 0.5))
@@ -76,14 +76,27 @@ def compare_pdfs():
         similarity_index = (weight_text * text_similarity + 
                           weight_handwriting * handwriting_similarity)
 
-        # Generate report
-        report_path = generate_report(text_similarity, handwriting_similarity, 
-                                    similarity_index, text1, text2)
+        # Generate report with feature scores and anomalies
+        report_path = generate_report(
+            text_similarity, 
+            handwriting_similarity, 
+            similarity_index, 
+            text1, 
+            text2,
+            feature_scores,
+            anomalies1,
+            anomalies2
+        )
 
         return jsonify({
             'text_similarity': text_similarity,
             'handwriting_similarity': handwriting_similarity,
             'similarity_index': similarity_index,
+            'feature_scores': feature_scores,
+            'anomalies': {
+                'document1': anomalies1,
+                'document2': anomalies2
+            },
             'report_url': report_path
         })
 

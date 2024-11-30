@@ -22,10 +22,14 @@ def compute_handwriting_similarity(pdf_path1, pdf_path2):
         features1 = extract_handwriting_features(images1, api_key)
         features2 = extract_handwriting_features(images2, api_key)
 
-        # Compare features and calculate similarity score
-        similarity = compare_handwriting_features(features1, features2)
+        # Add anomaly detection
+        anomalies1 = detect_internal_anomalies(features1)
+        anomalies2 = detect_internal_anomalies(features2)
 
-        return float(np.clip(similarity, 0, 1))
+        # Compare features and calculate similarity score
+        similarity, feature_scores = compare_handwriting_features(features1, features2)
+
+        return float(np.clip(similarity, 0, 1)), feature_scores, anomalies1, anomalies2
     except Exception as e:
         print(f"Detailed error in handwriting similarity: {str(e)}")
         print(f"API key used: {api_key[:10]}...")
@@ -122,7 +126,7 @@ def compare_handwriting_features(features1, features2):
     Compare handwriting features and return a similarity score
     """
     if not features1 or not features2:
-        return 0.0
+        return 0.0, {}
         
     # Calculate various similarity metrics
     conf_sim = 1 - abs(np.mean([f['confidence'] for f in features1]) - 
@@ -137,6 +141,14 @@ def compare_handwriting_features(features1, features2):
     avg_conf_sim = 1 - abs(np.mean([f['average_symbol_confidence'] for f in features1]) - 
                           np.mean([f['average_symbol_confidence'] for f in features2]))
     
+    # Store individual scores
+    feature_scores = {
+        'confidence_similarity': float(np.clip(conf_sim, 0, 1)),
+        'symbol_density_similarity': float(np.clip(symbol_density_sim, 0, 1)),
+        'line_break_similarity': float(np.clip(line_break_sim, 0, 1)),
+        'average_confidence_similarity': float(np.clip(avg_conf_sim, 0, 1))
+    }
+    
     # Weight the different similarity metrics
     weights = {
         'confidence': 0.3,
@@ -150,4 +162,60 @@ def compare_handwriting_features(features1, features2):
                  weights['line_breaks'] * line_break_sim +
                  weights['avg_confidence'] * avg_conf_sim)
     
-    return float(np.clip(similarity, 0, 1)) 
+    return float(np.clip(similarity, 0, 1)), feature_scores
+
+def detect_internal_anomalies(features):
+    """
+    Detect anomalies within a single document's handwriting
+    """
+    anomalies = []
+    
+    if not features:
+        return []
+        
+    # Calculate baseline statistics
+    confidence_mean = np.mean([f['confidence'] for f in features])
+    confidence_std = np.std([f['confidence'] for f in features])
+    
+    symbol_density_mean = np.mean([f['symbol_density'] for f in features])
+    symbol_density_std = np.std([f['symbol_density'] for f in features])
+    
+    line_breaks_mean = np.mean([f['line_breaks'] for f in features])
+    line_breaks_std = np.std([f['line_breaks'] for f in features])
+    
+    # Define threshold for anomaly (e.g., 2 standard deviations)
+    threshold = 2.0
+    
+    # Check each paragraph for anomalies
+    for i, feature in enumerate(features):
+        anomaly = {}
+        
+        # Check confidence deviation
+        if abs(feature['confidence'] - confidence_mean) > threshold * confidence_std:
+            anomaly['confidence'] = {
+                'value': feature['confidence'],
+                'mean': confidence_mean,
+                'deviation': abs(feature['confidence'] - confidence_mean) / confidence_std
+            }
+            
+        # Check symbol density deviation
+        if abs(feature['symbol_density'] - symbol_density_mean) > threshold * symbol_density_std:
+            anomaly['symbol_density'] = {
+                'value': feature['symbol_density'],
+                'mean': symbol_density_mean,
+                'deviation': abs(feature['symbol_density'] - symbol_density_mean) / symbol_density_std
+            }
+            
+        # Check line breaks deviation
+        if abs(feature['line_breaks'] - line_breaks_mean) > threshold * line_breaks_std:
+            anomaly['line_breaks'] = {
+                'value': feature['line_breaks'],
+                'mean': line_breaks_mean,
+                'deviation': abs(feature['line_breaks'] - line_breaks_mean) / line_breaks_std
+            }
+            
+        if anomaly:
+            anomaly['paragraph_index'] = i
+            anomalies.append(anomaly)
+    
+    return anomalies
