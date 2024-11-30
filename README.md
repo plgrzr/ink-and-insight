@@ -21,7 +21,7 @@ A Flask web application that analyzes and compares PDF documents using Google Cl
 1. Clone and setup:
    ```bash
    git clone https://github.com/mavericksxx/ink-and-insight.git
-   cd pdf-similarity-analyzer
+   cd ink-and-insight
    python -m venv .venv
    source .venv/bin/activate  # Windows: .venv\Scripts\activate
    pip install -r requirements.txt
