@@ -7,61 +7,113 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <header>
-        <h1>Ink&Insight</h1>
-    </header>
+    <nav>
+        <div class="nav-content">
+            <h1>Ink&Insight</h1>
+        </div>
+    </nav>
 
     <main>
-        <div class="upload-container">
+        <div class="container">
+            <h2>Compare PDF Documents</h2>
+            
             <form id="upload-form" enctype="multipart/form-data">
-                <div class="file-inputs">
-                    <div class="file-input">
-                        <label for="file1">PDF Document 1:</label>
-                        <input type="file" id="file1" name="file1" accept=".pdf" required>
+                <div class="upload-section">
+                    <h3>First PDF Document</h3>
+                    <div class="upload-box" onclick="document.getElementById('file1').click()">
+                        <div class="upload-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#86868b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="upload-text">Click to upload or drag and drop</div>
+                        <div class="upload-info">PDF (MAX. 10MB)</div>
                     </div>
-                    
-                    <div class="file-input">
-                        <label for="file2">PDF Document 2:</label>
-                        <input type="file" id="file2" name="file2" accept=".pdf" required>
-                    </div>
+                    <input type="file" id="file1" name="file1" accept=".pdf" required style="display: none">
                 </div>
-                
-                <div class="weight-slider">
-                    <label for="weight-text">Text vs. Handwriting Weight:</label>
+
+                <div class="upload-section">
+                    <h3>Second PDF Document</h3>
+                    <div class="upload-box" onclick="document.getElementById('file2').click()">
+                        <div class="upload-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#86868b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="upload-text">Click to upload or drag and drop</div>
+                        <div class="upload-info">PDF (MAX. 10MB)</div>
+                    </div>
+                    <input type="file" id="file2" name="file2" accept=".pdf" required style="display: none">
+                </div>
+
+                <div class="weight-section">
+                    <h3>Analysis Weight (Handwriting-Text)</h3>
                     <input type="range" id="weight-text" name="weight_text" 
                            min="0" max="1" step="0.1" value="0.5">
-                    <div class="weight-labels">
-                        <span>Handwriting</span>
-                        <span>Text</span>
-                    </div>
+                    <div class="weight-info">Adjust the weight between handwriting and text analysis</div>
                 </div>
-                
-                <button type="submit">Compare PDFs</button>
-            </form>
-        </div>
 
-        <div id="results" class="results-container" style="display: none;">
-            <h2>Similarity Analysis Results</h2>
-            <div class="similarity-scores">
-                <div class="score">
-                    <h3>Text Similarity</h3>
-                    <div class="score-value" id="text-similarity"></div>
-                </div>
-                <div class="score">
-                    <h3>Handwriting Similarity</h3>
-                    <div class="score-value" id="handwriting-similarity"></div>
-                </div>
-                <div class="score">
-                    <h3>Overall Similarity Index</h3>
-                    <div class="score-value" id="similarity-index"></div>
-                </div>
-            </div>
-            <div class="report-download">
-                <a id="report-link" href="#" class="download-button">Download Report</a>
-            </div>
+                <button type="submit" class="analyze-btn">Start Analysis →</button>
+            </form>
         </div>
     </main>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Add drag and drop functionality
+        document.querySelectorAll('.upload-box').forEach((box, index) => {
+            box.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                box.classList.add('drag-over');
+            });
+
+            box.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                box.classList.remove('drag-over');
+            });
+
+            box.addEventListener('drop', (e) => {
+                e.preventDefault();
+                box.classList.remove('drag-over');
+                const fileInput = document.getElementById(`file${index + 1}`);
+                const file = e.dataTransfer.files[0];
+                if (file && file.type === 'application/pdf') {
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    fileInput.files = dataTransfer.files;
+                    box.querySelector('.upload-text').textContent = file.name;
+                }
+            });
+        });
+
+        // Handle file input changes
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const box = e.target.previousElementSibling;
+                    box.querySelector('.upload-text').textContent = file.name;
+                }
+            });
+        });
+
+        // Add slider progress handling
+        const slider = document.getElementById('weight-text');
+        
+        function updateSliderProgress(value) {
+            const progress = (value * 100);
+            slider.style.background = `linear-gradient(to right, 
+                var(--accent-color) ${progress}%, 
+                #e5e5e5 ${progress}%)`;
+        }
+
+        // Initialize slider progress
+        updateSliderProgress(slider.value);
+
+        // Update on slider change
+        slider.addEventListener('input', (e) => {
+            updateSliderProgress(e.target.value);
+        });
+    </script>
 </body>
 </html> 
