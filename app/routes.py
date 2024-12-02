@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, jsonify, current_app
-from werkzeug.utils import secure_filename
 import os
 import uuid
 from app.similarity.text_similarity import compute_text_similarity
