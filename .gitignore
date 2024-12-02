@@ -82,3 +82,6 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg 
+
+# dont upload nltk lol
+nltk_data/
