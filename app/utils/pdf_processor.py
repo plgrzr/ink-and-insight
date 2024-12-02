@@ -1,17 +1,18 @@
 import requests
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
 import os
 import base64
 from pdf2image import convert_from_path
 import io
 import hashlib
 import json
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 CACHE_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "cached_data"
 )
 os.makedirs(CACHE_DIR, exist_ok=True)
+MAX_WORKERS = 4
 
 
 def get_cache_key(file_path: str) -> str:
@@ -69,26 +70,32 @@ def get_mathpix_headers() -> Dict:
     }
 
 
-def process_page(args: tuple) -> Optional[str]:
-    image, file_path, page_num = args
+def process_single_request(request_data: Dict, headers: Dict) -> requests.Response:
+    return requests.post(
+        "https://api.mathpix.com/v3/text",
+        json=request_data,
+        headers=headers,
+        timeout=60,
+    )
 
+
+def process_page(args: Tuple) -> Optional[str]:
+    image, file_path, page_num = args
     try:
         base64_image = prepare_page_image(image)
         headers = get_mathpix_headers()
         data = create_mathpix_request(base64_image)
-
         print(f"Processing page {page_num+1} of {file_path}")
 
-        response = requests.post(
-            "https://api.mathpix.com/v3/text", json=data, headers=headers, timeout=60
-        )
+        with ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(process_single_request, data, headers)
+            response = future.result()
 
         if response.status_code != 200:
             print(f"Error {response.status_code}: {response.text}")
             return None
 
         result = response.json()
-
         if "error" in result:
             print(f"Mathpix error: {result.get('error')}")
             print(f"Error info: {result.get('error_info', '')}")
@@ -101,6 +108,39 @@ def process_page(args: tuple) -> Optional[str]:
         return None
 
 
+def convert_pdf_to_images(file_path: str) -> List:
+    with ProcessPoolExecutor(max_workers=1) as executor:
+        future = executor.submit(convert_from_path, file_path)
+        return future.result()
+
+
+def process_pdf_pages(file_path: str, images: List) -> List[str]:
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        futures = [
+            executor.submit(process_page, (image, file_path, i))
+            for i, image in enumerate(images)
+        ]
+        return [
+            result
+            for future in as_completed(futures)
+            if (result := future.result()) is not None
+        ]
+
+
+def process_multiple_pdfs(pdf_files: List[str]) -> Dict[str, str]:
+    with ProcessPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        futures = {
+            executor.submit(extract_text_from_pdf, pdf_file): pdf_file
+            for pdf_file in pdf_files
+            if validate_pdf(pdf_file)
+        }
+        return {
+            pdf_file: future.result()
+            for future in as_completed(futures)
+            if (pdf_file := futures[future])
+        }
+
+
 def extract_text_from_pdf(file_path: str) -> str:
     try:
         cache_key = get_cache_key(file_path)
@@ -108,18 +148,8 @@ def extract_text_from_pdf(file_path: str) -> str:
             print(f"Using cached response for {file_path}")
             return cached
 
-        images = convert_from_path(file_path)
-        texts: List[str] = []
-
-        with ThreadPoolExecutor(max_workers=4) as executor:
-            futures = [
-                executor.submit(process_page, (image, file_path, i))
-                for i, image in enumerate(images)
-            ]
-
-            for future in as_completed(futures):
-                if result := future.result():
-                    texts.append(result)
+        images = convert_pdf_to_images(file_path)
+        texts = process_pdf_pages(file_path, images)
 
         if not texts:
             return ""
