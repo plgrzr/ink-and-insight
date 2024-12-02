@@ -209,4 +209,141 @@ input[type="range"]::-webkit-slider-thumb {
 
 .download-button:hover {
     opacity: 0.9;
+}
+
+.variations-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.document-variations {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.variations-list {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.variation-item {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.variation-item:last-child {
+    border-bottom: none;
+}
+
+.variation-pages {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 0.5rem;
+}
+
+.variation-change {
+    color: #666;
+    margin-left: 1rem;
+    font-size: 0.95rem;
+}
+
+.no-variations {
+    color: #666;
+    font-style: italic;
+}
+
+.semantic-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.document-semantics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.semantics-list {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.semantic-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.semantic-item:last-child {
+    border-bottom: none;
+}
+
+.segment-text {
+    font-size: 0.9rem;
+    color: #444;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.segment-flow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.85rem;
+    margin: 0.5rem 0;
+}
+
+.flow-arrow {
+    color: #999;
+}
+
+.similarity-indicator {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.similarity-low {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.similarity-medium {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.similarity-high {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.no-inconsistencies {
+    color: #666;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .document-variations {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .document-semantics {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
 } 

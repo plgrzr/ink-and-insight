@@ -2,7 +2,8 @@ from fpdf import FPDF
 import os
 from datetime import datetime
 
-def generate_report(text_similarity, handwriting_similarity, similarity_index, text1, text2, feature_scores=None, anomalies1=None, anomalies2=None):
+def generate_report(text_similarity, handwriting_similarity, similarity_index, text1, text2, 
+                   feature_scores=None, anomalies1=None, anomalies2=None, variations1=None, variations2=None):
     """
     Generate a PDF report with similarity analysis results
     """
@@ -83,6 +84,32 @@ def generate_report(text_similarity, handwriting_similarity, similarity_index, t
             
             write_anomalies(anomalies1, 1)
             write_anomalies(anomalies2, 2)
+        
+        # Add page variation analysis section
+        if variations1 or variations2:
+            pdf.add_page()
+            pdf.set_font('Arial', 'B', 14)
+            pdf.cell(effective_width, 10, 'Page-to-Page Handwriting Variations:', 0, 1)
+            pdf.ln(5)
+            
+            def write_variations(variations, doc_num):
+                pdf.set_font('Arial', 'B', 12)
+                pdf.cell(effective_width, 8, f'Document {doc_num} Variations:', 0, 1)
+                if variations:
+                    pdf.set_font('Arial', '', 10)
+                    for variation in variations:
+                        pdf.multi_cell(effective_width, 5, 
+                            f"Changes between pages {variation['from_page']} and {variation['to_page']}:", 0)
+                        for change in variation['changes']:
+                            pdf.multi_cell(effective_width, 5, f"- {change['description']}")
+                        pdf.ln(3)
+                else:
+                    pdf.set_font('Arial', '', 10)
+                    pdf.multi_cell(effective_width, 5, "No significant page-to-page variations detected")
+                pdf.ln(5)
+            
+            write_variations(variations1, 1)
+            write_variations(variations2, 2)
         
         # Add extracted text samples
         pdf.add_page()

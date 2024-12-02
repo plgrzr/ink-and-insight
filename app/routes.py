@@ -66,8 +66,9 @@ def compare_pdfs():
             return jsonify({'error': 'Could not extract text from one or both files'}), 400
 
         # Calculate similarities
-        text_similarity = compute_text_similarity(text1, text2)
-        handwriting_similarity, feature_scores, anomalies1, anomalies2 = compute_handwriting_similarity(filepath1, filepath2)
+        text_analysis = compute_text_similarity(text1, text2)
+        text_similarity = text_analysis['similarity_score']
+        handwriting_similarity, feature_scores, anomalies1, anomalies2, variations1, variations2 = compute_handwriting_similarity(filepath1, filepath2)
 
         # Calculate weighted similarity index
         weight_text = float(request.form.get('weight_text', 0.5))
@@ -85,17 +86,24 @@ def compare_pdfs():
             text2,
             feature_scores,
             anomalies1,
-            anomalies2
+            anomalies2,
+            variations1,
+            variations2
         )
 
         return jsonify({
             'text_similarity': text_similarity,
+            'text_consistency': text_analysis['consistency_analysis'],
             'handwriting_similarity': handwriting_similarity,
             'similarity_index': similarity_index,
             'feature_scores': feature_scores,
             'anomalies': {
                 'document1': anomalies1,
                 'document2': anomalies2
+            },
+            'variations': {
+                'document1': variations1,
+                'document2': variations2
             },
             'report_url': report_path
         })

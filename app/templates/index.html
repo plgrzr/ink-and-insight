@@ -57,7 +57,7 @@
             </form>
 
             <!-- Results Section -->
-            <div id="results" style="display: none;">
+            <div class="results" id="results" style="display: none;">
                 <h2>Analysis Results</h2>
                 <div class="similarity-scores">
                     <div class="score">
@@ -73,6 +73,45 @@
                         <div class="score-value" id="similarity-index">-</div>
                     </div>
                 </div>
+
+                <!-- Add new variations section -->
+                <div class="variations-section">
+                    <h3>Handwriting Variations Analysis</h3>
+                    <div class="document-variations">
+                        <div class="document-section">
+                            <h4>Document 1 Variations</h4>
+                            <div id="variations-doc1" class="variations-list">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="document-section">
+                            <h4>Document 2 Variations</h4>
+                            <div id="variations-doc2" class="variations-list">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add semantic consistency section after variations section -->
+                <div class="semantic-section">
+                    <h3>Semantic Consistency Analysis</h3>
+                    <div class="document-semantics">
+                        <div class="document-section">
+                            <h4>Document 1 Semantic Flow</h4>
+                            <div id="semantics-doc1" class="semantics-list">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="document-section">
+                            <h4>Document 2 Semantic Flow</h4>
+                            <div id="semantics-doc2" class="semantics-list">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="report-download">
                     <a id="report-link" href="#" class="download-button">Download Detailed Report</a>
                 </div>

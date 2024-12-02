@@ -1,91 +1,157 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from transformers import AutoTokenizer, AutoModel
+import torch
 import numpy as np
-import re
+from collections import defaultdict
+import nltk
+import os
+import sys
 
-def preprocess_math_text(text):
-    """
-    Preprocess text containing mathematical content
-    """
-    # Replace common math symbols with words
-    replacements = {
-        '+': 'plus',
-        '-': 'minus',
-        '=': 'equals',
-        '≠': 'not_equals',
-        '≈': 'approximately',
-        '∑': 'sum',
-        '∫': 'integral',
-        '×': 'times',
-        '÷': 'divided_by',
-        '^': 'power',
-        '√': 'sqrt',
-        '∞': 'infinity',
-        '≤': 'less_equal',
-        '≥': 'greater_equal',
-        '<': 'less_than',
-        '>': 'greater_than',
+# Set NLTK data path to project directory
+current_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+nltk_data_dir = os.path.join(current_dir, 'nltk_data')
+os.makedirs(nltk_data_dir, exist_ok=True)
+
+# Ensure NLTK data path is set correctly
+nltk.data.path = [nltk_data_dir] + nltk.data.path
+
+def ensure_nltk_packages():
+    """Ensure all required NLTK packages are downloaded"""
+    packages = {
+        'punkt': 'tokenizers/punkt',
+        'stopwords': 'corpora/stopwords',
+        'wordnet': 'corpora/wordnet'
     }
     
-    for symbol, word in replacements.items():
-        text = text.replace(symbol, f' {word} ')
-    
-    # Handle LaTeX-style math expressions
-    text = re.sub(r'\$(.*?)\$', r'\1', text)  # Remove math delimiters but keep content
-    text = re.sub(r'\\[a-zA-Z]+', lambda m: m.group(0).replace('\\', ''), text)  # Remove backslashes from LaTeX commands
-    
-    # Remove special characters but keep alphanumeric and processed math symbols
-    text = re.sub(r'[^a-zA-Z0-9\s_]', ' ', text)
-    
-    # Normalize whitespace
-    text = ' '.join(text.split())
-    
-    return text
+    for package, path in packages.items():
+        try:
+            nltk.data.find(path)
+            print(f"Found {package} data")
+        except LookupError:
+            print(f"Downloading {package}")
+            try:
+                nltk.download(package, download_dir=nltk_data_dir, quiet=True)
+                print(f"Successfully downloaded {package}")
+            except Exception as e:
+                print(f"Error downloading {package}: {str(e)}")
+                sys.exit(1)
+
+# Ensure NLTK packages are available before proceeding
+ensure_nltk_packages()
+
+class SemanticAnalyzer:
+    def __init__(self):
+        try:
+            self.tokenizer = AutoTokenizer.from_pretrained('sentence-transformers/paraphrase-MiniLM-L3-v2')
+            self.model = AutoModel.from_pretrained('sentence-transformers/paraphrase-MiniLM-L3-v2')
+            self.stop_words = set(stopwords.words('english'))
+            self.lemmatizer = WordNetLemmatizer()
+        except Exception as e:
+            print(f"Error initializing SemanticAnalyzer: {str(e)}")
+            raise
+
+    def preprocess_text(self, text):
+        """Preprocess text by segmenting into paragraphs and sentences"""
+        try:
+            # Split into paragraphs
+            paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+            
+            # Further split paragraphs into sentences
+            segments = []
+            for para in paragraphs:
+                try:
+                    sentences = sent_tokenize(para)
+                    segments.extend(sentences)
+                except Exception as e:
+                    print(f"Error tokenizing paragraph: {str(e)}")
+                    segments.append(para)  # Fall back to using whole paragraph
+            
+            return segments
+        except Exception as e:
+            print(f"Error in preprocess_text: {str(e)}")
+            return [text]  # Fall back to using whole text as one segment
+
+    def get_embeddings(self, segments):
+        """Get BERT embeddings for text segments"""
+        embeddings = []
+        
+        for segment in segments:
+            # Tokenize and get BERT embeddings
+            inputs = self.tokenizer(segment, padding=True, truncation=True, return_tensors='pt')
+            with torch.no_grad():
+                outputs = self.model(**inputs)
+            
+            # Use mean pooling to get segment embedding
+            attention_mask = inputs['attention_mask']
+            token_embeddings = outputs.last_hidden_state
+            input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
+            segment_embedding = torch.sum(token_embeddings * input_mask_expanded, 1) / torch.clamp(input_mask_expanded.sum(1), min=1e-9)
+            
+            embeddings.append(segment_embedding.numpy()[0])
+        
+        return np.array(embeddings)
+
+    def compute_semantic_similarity(self, embeddings1, embeddings2):
+        """Compute semantic similarity between two sets of embeddings"""
+        similarities = []
+        
+        for emb1 in embeddings1:
+            # Compute cosine similarity with each embedding in the second set
+            sims = [np.dot(emb1, emb2)/(np.linalg.norm(emb1)*np.linalg.norm(emb2)) for emb2 in embeddings2]
+            similarities.append(max(sims))  # Take best match
+        
+        return np.mean(similarities)
+
+    def analyze_semantic_consistency(self, text1, text2):
+        """Analyze semantic consistency between two texts"""
+        # Preprocess and segment texts
+        segments1 = self.preprocess_text(text1)
+        segments2 = self.preprocess_text(text2)
+        
+        # Get embeddings
+        embeddings1 = self.get_embeddings(segments1)
+        embeddings2 = self.get_embeddings(segments2)
+        
+        # Compute overall semantic similarity
+        similarity = self.compute_semantic_similarity(embeddings1, embeddings2)
+        
+        # Analyze internal consistency
+        consistency_analysis = {
+            'doc1': self.analyze_internal_consistency(segments1, embeddings1),
+            'doc2': self.analyze_internal_consistency(segments2, embeddings2)
+        }
+        
+        return similarity, consistency_analysis
+
+    def analyze_internal_consistency(self, segments, embeddings):
+        """Analyze semantic consistency within a document"""
+        inconsistencies = []
+        
+        for i in range(len(segments)-1):
+            similarity = np.dot(embeddings[i], embeddings[i+1])/(np.linalg.norm(embeddings[i])*np.linalg.norm(embeddings[i+1]))
+            
+            # If similarity drops below threshold, mark as potential inconsistency
+            if similarity < 0.5:  # Adjustable threshold
+                inconsistencies.append({
+                    'segment_index': i,
+                    'segment_text': segments[i],
+                    'next_segment_text': segments[i+1],
+                    'similarity_score': float(similarity)
+                })
+        
+        return inconsistencies
 
 def compute_text_similarity(text1, text2):
     """
-    Compute similarity between two texts using TF-IDF and cosine similarity
+    Compute semantic similarity between two texts and analyze consistency
     """
-    try:
-        # Preprocess texts
-        processed_text1 = preprocess_math_text(text1)
-        processed_text2 = preprocess_math_text(text2)
-        
-        print(f"Processed text 1: {processed_text1[:100]}")
-        print(f"Processed text 2: {processed_text2[:100]}")
-        
-        # Check if texts are empty or identical
-        if not processed_text1.strip() or not processed_text2.strip():
-            print("One or both texts are empty after processing")
-            return 0.0
-        if processed_text1.strip() == processed_text2.strip():
-            return 1.0
-        
-        # Configure vectorizer
-        vectorizer = TfidfVectorizer(
-            stop_words=None,
-            min_df=1,
-            analyzer='char_wb',  # Use character n-grams
-            ngram_range=(3, 5),  # Use 3 to 5 character sequences
-            lowercase=True
-        )
-        
-        try:
-            tfidf_matrix = vectorizer.fit_transform([processed_text1, processed_text2])
-            vocabulary_size = len(vectorizer.vocabulary_)
-            print(f"Vocabulary size: {vocabulary_size}")
-            
-            if vocabulary_size == 0:
-                print("Warning: Empty vocabulary after vectorization")
-                return 0.0
-            
-            similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])[0][0]
-            return float(np.clip(similarity, 0, 1))
-            
-        except ValueError as e:
-            print(f"Vectorization error: {str(e)}")
-            return 0.0
-            
-    except Exception as e:
-        print(f"Error computing text similarity: {str(e)}")
-        return 0.0 
+    analyzer = SemanticAnalyzer()
+    similarity, consistency_analysis = analyzer.analyze_semantic_consistency(text1, text2)
+    
+    return {
+        'similarity_score': float(similarity),
+        'consistency_analysis': consistency_analysis
+    }

@@ -22,14 +22,14 @@ def compute_handwriting_similarity(pdf_path1, pdf_path2):
         features1 = extract_handwriting_features(images1, api_key)
         features2 = extract_handwriting_features(images2, api_key)
 
-        # Add anomaly detection
-        anomalies1 = detect_internal_anomalies(features1)
-        anomalies2 = detect_internal_anomalies(features2)
+        # Add anomaly and variation detection
+        anomalies1, variations1 = detect_internal_anomalies(features1)
+        anomalies2, variations2 = detect_internal_anomalies(features2)
 
         # Compare features and calculate similarity score
         similarity, feature_scores = compare_handwriting_features(features1, features2)
 
-        return float(np.clip(similarity, 0, 1)), feature_scores, anomalies1, anomalies2
+        return float(np.clip(similarity, 0, 1)), feature_scores, anomalies1, anomalies2, variations1, variations2
     except Exception as e:
         print(f"Detailed error in handwriting similarity: {str(e)}")
         print(f"API key used: {api_key[:10]}...")
@@ -39,8 +39,10 @@ def extract_handwriting_features(images, api_key):
     """
     Extract handwriting features from images using Google Cloud Vision API
     """
-    features = []
-    for image in images:
+    features = []  # List to store features for each page
+    
+    for page_num, image in enumerate(images):
+        page_features = []  # Features for current page
         try:
             # Convert image to bytes
             img_byte_arr = io.BytesIO()
@@ -93,7 +95,7 @@ def extract_handwriting_features(images, api_key):
                             for paragraph in block.get('paragraphs', []):
                                 words = paragraph.get('words', [])
                                 if words:
-                                    features.append({
+                                    page_features.append({
                                         'confidence': paragraph.get('confidence', 0),
                                         'word_count': len(words),
                                         'symbol_density': sum(1 for word in words 
@@ -108,16 +110,12 @@ def extract_handwriting_features(images, api_key):
                                                                    sum(1 for word in words 
                                                                       for _ in word.get('symbols', []))
                                     })
-                else:
-                    print("No text annotation found in response")
-                    print(f"Response data: {response_data}")
-            else:
-                print("No responses found in result")
-                print(f"Result data: {result}")
-                
+                    
         except Exception as e:
             print(f"Error processing image: {str(e)}")
             continue
+        
+        features.append(page_features)  # Add features for this page
     
     return features
 
@@ -125,21 +123,28 @@ def compare_handwriting_features(features1, features2):
     """
     Compare handwriting features and return a similarity score
     """
-    if not features1 or not features2:
+    if not features1 or not features2 or not features1[0] or not features2[0]:
+        return 0.0, {}
+    
+    # Flatten page features into single list for each document
+    flat_features1 = [f for page_features in features1 for f in page_features]
+    flat_features2 = [f for page_features in features2 for f in page_features]
+    
+    if not flat_features1 or not flat_features2:
         return 0.0, {}
         
     # Calculate various similarity metrics
-    conf_sim = 1 - abs(np.mean([f['confidence'] for f in features1]) - 
-                      np.mean([f['confidence'] for f in features2]))
+    conf_sim = 1 - abs(np.mean([f['confidence'] for f in flat_features1]) - 
+                      np.mean([f['confidence'] for f in flat_features2]))
     
-    symbol_density_sim = 1 - abs(np.mean([f['symbol_density'] for f in features1]) - 
-                                np.mean([f['symbol_density'] for f in features2]))
+    symbol_density_sim = 1 - abs(np.mean([f['symbol_density'] for f in flat_features1]) - 
+                                np.mean([f['symbol_density'] for f in flat_features2]))
     
-    line_break_sim = 1 - abs(np.mean([f['line_breaks'] for f in features1]) - 
-                            np.mean([f['line_breaks'] for f in features2]))
+    line_break_sim = 1 - abs(np.mean([f['line_breaks'] for f in flat_features1]) - 
+                            np.mean([f['line_breaks'] for f in flat_features2]))
     
-    avg_conf_sim = 1 - abs(np.mean([f['average_symbol_confidence'] for f in features1]) - 
-                          np.mean([f['average_symbol_confidence'] for f in features2]))
+    avg_conf_sim = 1 - abs(np.mean([f['average_symbol_confidence'] for f in flat_features1]) - 
+                          np.mean([f['average_symbol_confidence'] for f in flat_features2]))
     
     # Store individual scores
     feature_scores = {
@@ -166,13 +171,52 @@ def compare_handwriting_features(features1, features2):
 
 def detect_internal_anomalies(features):
     """
-    Detect anomalies within a single document's handwriting
+    Detect anomalies within a single document's handwriting, including page-to-page variations
+    """
+    anomalies = []
+    page_variations = []
+    
+    if not features or not isinstance(features[0], list):
+        return [], []
+        
+    # Analyze each page's features
+    for page_num, page_features in enumerate(features):
+        if not page_features:
+            continue
+            
+        # Calculate baseline statistics for this page
+        page_confidence_mean = np.mean([f['confidence'] for f in page_features])
+        page_symbol_density_mean = np.mean([f['symbol_density'] for f in page_features])
+        page_line_breaks_mean = np.mean([f['line_breaks'] for f in page_features])
+        
+        # Store page characteristics
+        page_characteristics = {
+            'page_number': page_num + 1,
+            'confidence': page_confidence_mean,
+            'symbol_density': page_symbol_density_mean,
+            'line_breaks': page_line_breaks_mean
+        }
+        
+        # Detect internal anomalies within the page
+        page_anomalies = detect_page_anomalies(page_features, page_num)
+        anomalies.extend(page_anomalies)
+        
+        # Store page characteristics for variation analysis
+        page_variations.append(page_characteristics)
+    
+    # Analyze variations between pages
+    if len(page_variations) > 1:
+        variations = analyze_page_variations(page_variations)
+        return anomalies, variations
+    
+    return anomalies, []
+
+def detect_page_anomalies(features, page_num):
+    """
+    Detect anomalies within a single page
     """
     anomalies = []
     
-    if not features:
-        return []
-        
     # Calculate baseline statistics
     confidence_mean = np.mean([f['confidence'] for f in features])
     confidence_std = np.std([f['confidence'] for f in features])
@@ -183,14 +227,12 @@ def detect_internal_anomalies(features):
     line_breaks_mean = np.mean([f['line_breaks'] for f in features])
     line_breaks_std = np.std([f['line_breaks'] for f in features])
     
-    # Define threshold for anomaly (e.g., 2 standard deviations)
     threshold = 2.0
     
     # Check each paragraph for anomalies
     for i, feature in enumerate(features):
         anomaly = {}
         
-        # Check confidence deviation
         if abs(feature['confidence'] - confidence_mean) > threshold * confidence_std:
             anomaly['confidence'] = {
                 'value': feature['confidence'],
@@ -198,7 +240,6 @@ def detect_internal_anomalies(features):
                 'deviation': abs(feature['confidence'] - confidence_mean) / confidence_std
             }
             
-        # Check symbol density deviation
         if abs(feature['symbol_density'] - symbol_density_mean) > threshold * symbol_density_std:
             anomaly['symbol_density'] = {
                 'value': feature['symbol_density'],
@@ -206,7 +247,6 @@ def detect_internal_anomalies(features):
                 'deviation': abs(feature['symbol_density'] - symbol_density_mean) / symbol_density_std
             }
             
-        # Check line breaks deviation
         if abs(feature['line_breaks'] - line_breaks_mean) > threshold * line_breaks_std:
             anomaly['line_breaks'] = {
                 'value': feature['line_breaks'],
@@ -216,6 +256,56 @@ def detect_internal_anomalies(features):
             
         if anomaly:
             anomaly['paragraph_index'] = i
+            anomaly['page_number'] = page_num + 1
             anomalies.append(anomaly)
     
     return anomalies
+
+def analyze_page_variations(page_characteristics):
+    """
+    Analyze variations between pages
+    """
+    variations = []
+    threshold = 0.15  # 15% variation threshold
+    
+    for i in range(1, len(page_characteristics)):
+        prev_page = page_characteristics[i-1]
+        curr_page = page_characteristics[i]
+        
+        variation = {
+            'from_page': prev_page['page_number'],
+            'to_page': curr_page['page_number'],
+            'changes': []
+        }
+        
+        # Check confidence variation
+        conf_change = abs(curr_page['confidence'] - prev_page['confidence'])
+        if conf_change > threshold:
+            variation['changes'].append({
+                'type': 'confidence',
+                'difference': conf_change,
+                'description': f"Confidence changed by {(conf_change * 100):.1f}%"
+            })
+            
+        # Check symbol density variation
+        density_change = abs(curr_page['symbol_density'] - prev_page['symbol_density'])
+        if density_change > threshold:
+            variation['changes'].append({
+                'type': 'symbol_density',
+                'difference': density_change,
+                'description': f"Symbol density changed by {(density_change * 100):.1f}%"
+            })
+            
+        # Check line breaks variation
+        breaks_change = abs(curr_page['line_breaks'] - prev_page['line_breaks'])
+        if breaks_change > threshold:
+            variation['changes'].append({
+                'type': 'line_breaks',
+                'difference': breaks_change,
+                'description': f"Line spacing changed by {(breaks_change * 100):.1f}%"
+            })
+            
+        if variation['changes']:
+            variations.append(variation)
+    
+    return variations
