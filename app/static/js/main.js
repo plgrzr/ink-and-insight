@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('upload-form');
     const results = document.getElementById('results');
     const reportLink = document.getElementById('report-link');
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Handle file input changes
-    document.querySelectorAll('input[type="file"]').forEach(input => {
+    for (const input of document.querySelectorAll('.file-input')) {
         input.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 box.querySelector('.upload-text').textContent = file.name;
             }
         });
-    });
+    };
 
     // Handle form submission
-    form.addEventListener('submit', async function(e) {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         // Show loading state
@@ -63,40 +63,40 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const data = await response.json();
-            
+
             // Update results
             if (data.text_similarity !== undefined) {
-                document.getElementById('text-similarity').textContent = 
-                    (data.text_similarity * 100).toFixed(1) + '%';
+                document.getElementById('text-similarity').textContent =
+                    `${(data.text_similarity * 100).toFixed(1)}%`;
             }
-            
+
             if (data.handwriting_similarity !== undefined) {
-                document.getElementById('handwriting-similarity').textContent = 
-                    (data.handwriting_similarity * 100).toFixed(1) + '%';
+                document.getElementById('handwriting-similarity').textContent =
+                    `${(data.handwriting_similarity * 100).toFixed(1)}%`;
             }
-            
+
             if (data.similarity_index !== undefined) {
-                document.getElementById('similarity-index').textContent = 
-                    (data.similarity_index * 100).toFixed(1) + '%';
+                document.getElementById('similarity-index').textContent =
+                    `${(data.similarity_index * 100).toFixed(1)}%`;
             }
-            
+
             // Update variations
             updateVariations('variations-doc1', data.variations.document1);
             updateVariations('variations-doc2', data.variations.document2);
-            
+
             // Update semantic consistency
             updateSemanticConsistency('semantics-doc1', data.text_consistency.doc1);
             updateSemanticConsistency('semantics-doc2', data.text_consistency.doc2);
-            
+
             // Update report link
             if (data.report_url) {
                 reportLink.href = data.report_url;
                 reportLink.style.display = 'block';
             }
-            
+
             // Show results
             results.style.display = 'block';
-            
+
             // Scroll to results
             results.scrollIntoView({ behavior: 'smooth' });
 
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const variationsHtml = variations.map(variation => {
-            const changesHtml = variation.changes.map(change => 
+            const changesHtml = variation.changes.map(change =>
                 `<div class="variation-change">• ${change.description}</div>`
             ).join('');
 
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add slider progress handling
     const slider = document.getElementById('weight-text');
-    
+
     function updateSliderProgress(value) {
         const progress = (value * 100);
         slider.style.background = `linear-gradient(to right, 
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const semanticsHtml = consistencyData.map(item => {
             const similarityClass = getSimilarityClass(item.similarity_score);
-            
+
             return `
                 <div class="semantic-item">
                     <div class="segment-text">${escapeHtml(item.segment_text)}</div>
