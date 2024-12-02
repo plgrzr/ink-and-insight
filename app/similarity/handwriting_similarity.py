@@ -4,6 +4,27 @@ import numpy as np
 from pdf2image import convert_from_path
 import os
 import base64
+import hashlib
+import json
+
+CACHE_DIR = '/home/tanaym/Documents/OfficialWork/School PDFs/NLP/ink-and-insight/cached_data'
+
+def get_cache_key(file_path):
+    with open(file_path, 'rb') as file:
+        file_hash = hashlib.md5(file.read()).hexdigest()
+    return file_hash
+
+def load_from_cache(cache_key):
+    cache_file = os.path.join(CACHE_DIR, f"{cache_key}.json")
+    if os.path.exists(cache_file):
+        with open(cache_file, 'r') as file:
+            return json.load(file)
+    return None
+
+def save_to_cache(cache_key, data):
+    cache_file = os.path.join(CACHE_DIR, f"{cache_key}.json")
+    with open(cache_file, 'w') as file:
+        json.dump(data, file)
 
 def compute_handwriting_similarity(pdf_path1, pdf_path2):
     """
@@ -27,9 +48,21 @@ def compute_handwriting_similarity(pdf_path1, pdf_path2):
         anomalies2, variations2 = detect_internal_anomalies(features2)
 
         # Compare features and calculate similarity score
+        cache_key1 = get_cache_key(pdf_path1)
+        cache_key2 = get_cache_key(pdf_path2)
+        combined_cache_key = hashlib.md5((cache_key1 + cache_key2).encode()).hexdigest()
+        
+        cached_response = load_from_cache(combined_cache_key)
+        if cached_response:
+            print(f"Using cached response for {pdf_path1} and {pdf_path2}")
+            return cached_response
+
         similarity, feature_scores = compare_handwriting_features(features1, features2)
 
-        return float(np.clip(similarity, 0, 1)), feature_scores, anomalies1, anomalies2, variations1, variations2
+        response_data = (float(np.clip(similarity, 0, 1)), feature_scores, anomalies1, anomalies2, variations1, variations2)
+        save_to_cache(combined_cache_key, response_data)
+        
+        return response_data
     except Exception as e:
         print(f"Detailed error in handwriting similarity: {str(e)}")
         print(f"API key used: {api_key[:10]}...")

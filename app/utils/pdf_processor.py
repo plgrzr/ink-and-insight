@@ -4,6 +4,27 @@ import base64
 from pdf2image import convert_from_path
 from PIL import Image
 import io
+import hashlib
+import json
+
+CACHE_DIR = '/home/tanaym/Documents/OfficialWork/School PDFs/NLP/ink-and-insight/cached_data'
+
+def get_cache_key(file_path):
+    with open(file_path, 'rb') as file:
+        file_hash = hashlib.md5(file.read()).hexdigest()
+    return file_hash
+
+def load_from_cache(cache_key):
+    cache_file = os.path.join(CACHE_DIR, f"{cache_key}.json")
+    if os.path.exists(cache_file):
+        with open(cache_file, 'r') as file:
+            return json.load(file)
+    return None
+
+def save_to_cache(cache_key, data):
+    cache_file = os.path.join(CACHE_DIR, f"{cache_key}.json")
+    with open(cache_file, 'w') as file:
+        json.dump(data, file)
 
 def validate_pdf(file_path):
     """
@@ -25,6 +46,12 @@ def extract_text_from_pdf(file_path):
     Extract text from PDF using Mathpix API
     """
     try:
+        cache_key = get_cache_key(file_path)
+        cached_response = load_from_cache(cache_key)
+        if cached_response:
+            print(f"Using cached response for {file_path}")
+            return cached_response
+
         # Convert PDF to images
         images = convert_from_path(file_path)
         all_text = []
@@ -84,6 +111,8 @@ def extract_text_from_pdf(file_path):
         # Combine all text
         full_content = '\n\n'.join(all_text)
         print(f"Extracted text length: {len(full_content)}")
+        
+        save_to_cache(cache_key, full_content)
         return full_content
             
     except Exception as e:
