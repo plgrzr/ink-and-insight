@@ -1,10 +1,12 @@
 # Ink&Insight
 
-A Flask web application that analyzes and compares PDF documents using Google Cloud Vision and Mathpix APIs to detect similarities in both text and handwriting.
+A Flask web application that analyzes and compares PDF documents using Google Cloud Vision, Mathpix APIs, and BERT-based semantic analysis to detect similarities in text content, writing style, and semantic flow.
 
 ## Features
 - PDF document comparison and analysis
 - Text and handwriting similarity detection
+- Semantic flow analysis using BERT embeddings
+- Writing style consistency checking
 - Detailed PDF report generation
 - Interactive web interface
 - Real-time results
@@ -15,6 +17,7 @@ A Flask web application that analyzes and compares PDF documents using Google Cl
 - Google Cloud Vision API key
 - Mathpix API credentials
 - `poppler-utils` for PDF processing
+- CUDA-compatible GPU (optional, for faster semantic analysis)
 
 ## Quick Start
 
@@ -25,6 +28,7 @@ A Flask web application that analyzes and compares PDF documents using Google Cl
    python -m venv .venv
    source .venv/bin/activate  # Windows: .venv\Scripts\activate
    pip install -r requirements.txt
+   python setup.py  # Downloads required NLTK data
    ```
 
 2. Configure environment:
@@ -50,7 +54,12 @@ A Flask web application that analyzes and compares PDF documents using Google Cl
 2. Upload two PDF documents
 3. Adjust text/handwriting weight using the slider
 4. Click "Compare PDFs"
-5. View results and download detailed report
+5. View results including:
+   - Overall similarity score
+   - Semantic flow analysis
+   - Writing style variations
+   - Text consistency checks
+6. Download detailed report
 
 ## Project Structure
 ```
