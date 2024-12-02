@@ -162,4 +162,51 @@ input[type="range"]::-webkit-slider-thumb {
 
 .analyze-btn:hover {
     opacity: 0.9;
+}
+
+.similarity-scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 2rem 0;
+}
+
+.score {
+    background: var(--background-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.score h3 {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.75rem;
+}
+
+.score-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.report-download {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.download-button {
+    display: inline-block;
+    padding: 0.875rem 1.5rem;
+    background-color: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+}
+
+.download-button:hover {
+    opacity: 0.9;
 } 

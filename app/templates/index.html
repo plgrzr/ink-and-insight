@@ -55,65 +55,31 @@
 
                 <button type="submit" class="analyze-btn">Start Analysis →</button>
             </form>
+
+            <!-- Results Section -->
+            <div id="results" style="display: none;">
+                <h2>Analysis Results</h2>
+                <div class="similarity-scores">
+                    <div class="score">
+                        <h3>Text Similarity</h3>
+                        <div class="score-value" id="text-similarity">-</div>
+                    </div>
+                    <div class="score">
+                        <h3>Handwriting Similarity</h3>
+                        <div class="score-value" id="handwriting-similarity">-</div>
+                    </div>
+                    <div class="score">
+                        <h3>Overall Similarity</h3>
+                        <div class="score-value" id="similarity-index">-</div>
+                    </div>
+                </div>
+                <div class="report-download">
+                    <a id="report-link" href="#" class="download-button">Download Detailed Report</a>
+                </div>
+            </div>
         </div>
     </main>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <script>
-        // Add drag and drop functionality
-        document.querySelectorAll('.upload-box').forEach((box, index) => {
-            box.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                box.classList.add('drag-over');
-            });
-
-            box.addEventListener('dragleave', (e) => {
-                e.preventDefault();
-                box.classList.remove('drag-over');
-            });
-
-            box.addEventListener('drop', (e) => {
-                e.preventDefault();
-                box.classList.remove('drag-over');
-                const fileInput = document.getElementById(`file${index + 1}`);
-                const file = e.dataTransfer.files[0];
-                if (file && file.type === 'application/pdf') {
-                    const dataTransfer = new DataTransfer();
-                    dataTransfer.items.add(file);
-                    fileInput.files = dataTransfer.files;
-                    box.querySelector('.upload-text').textContent = file.name;
-                }
-            });
-        });
-
-        // Handle file input changes
-        document.querySelectorAll('input[type="file"]').forEach(input => {
-            input.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const box = e.target.previousElementSibling;
-                    box.querySelector('.upload-text').textContent = file.name;
-                }
-            });
-        });
-
-        // Add slider progress handling
-        const slider = document.getElementById('weight-text');
-        
-        function updateSliderProgress(value) {
-            const progress = (value * 100);
-            slider.style.background = `linear-gradient(to right, 
-                var(--accent-color) ${progress}%, 
-                #e5e5e5 ${progress}%)`;
-        }
-
-        // Initialize slider progress
-        updateSliderProgress(slider.value);
-
-        // Update on slider change
-        slider.addEventListener('input', (e) => {
-            updateSliderProgress(e.target.value);
-        });
-    </script>
 </body>
 </html> 
