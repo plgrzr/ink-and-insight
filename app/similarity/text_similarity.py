@@ -6,6 +6,7 @@ import numpy as np
 import nltk
 import os
 import sys
+from nltk.tokenize import sent_tokenize
 
 # Set NLTK data path to project directory
 current_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
