@@ -1,23 +1,25 @@
 import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 import base64
 from pdf2image import convert_from_path
 import io
 import hashlib
 import json
+from typing import Dict, List, Optional
 
 CACHE_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "cached_data"
 )
+os.makedirs(CACHE_DIR, exist_ok=True)
 
 
-def get_cache_key(file_path):
+def get_cache_key(file_path: str) -> str:
     with open(file_path, "rb") as file:
-        file_hash = hashlib.md5(file.read()).hexdigest()
-    return file_hash
+        return hashlib.md5(file.read()).hexdigest()
 
 
-def load_from_cache(cache_key):
+def load_from_cache(cache_key: str) -> Optional[str]:
     cache_file = os.path.join(CACHE_DIR, f"{cache_key}.json")
     if os.path.exists(cache_file):
         with open(cache_file, "r") as file:
@@ -25,105 +27,109 @@ def load_from_cache(cache_key):
     return None
 
 
-def save_to_cache(cache_key, data):
+def save_to_cache(cache_key: str, data: str) -> None:
     cache_file = os.path.join(CACHE_DIR, f"{cache_key}.json")
     with open(cache_file, "w") as file:
         json.dump(data, file)
 
 
-def validate_pdf(file_path):
-    """
-    Validate if the file is a valid PDF using basic signature check
-    """
+def validate_pdf(file_path: str) -> bool:
     try:
         with open(file_path, "rb") as file:
-            # Check PDF signature
-            header = file.read(5)
-            if header == b"%PDF-":
-                return True
-            return False
+            return file.read(5) == b"%PDF-"
     except Exception as e:
         print(f"Validation error for {file_path}: {str(e)}")
         return False
 
 
-def extract_text_from_pdf(file_path):
-    """
-    Extract text from PDF using Mathpix API
-    """
+def prepare_page_image(image) -> str:
+    img_byte_arr = io.BytesIO()
+    image.save(img_byte_arr, format="PNG")
+    return base64.b64encode(img_byte_arr.getvalue()).decode()
+
+
+def create_mathpix_request(base64_image: str) -> Dict:
+    return {
+        "src": f"data:image/png;base64,{base64_image}",
+        "formats": ["text"],
+        "ocr": True,
+        "rm_spaces": True,
+        "enable_tables": True,
+        "enable_markdown": True,
+        "enable_math": True,
+        "enable_handwriting": True,
+    }
+
+
+def get_mathpix_headers() -> Dict:
+    return {
+        "app_id": os.environ.get("MATHPIX_APP_ID"),
+        "app_key": os.environ.get("MATHPIX_APP_KEY"),
+        "Content-Type": "application/json",
+    }
+
+
+def process_page(args: tuple) -> Optional[str]:
+    image, file_path, page_num = args
+
+    try:
+        base64_image = prepare_page_image(image)
+        headers = get_mathpix_headers()
+        data = create_mathpix_request(base64_image)
+
+        print(f"Processing page {page_num+1} of {file_path}")
+
+        response = requests.post(
+            "https://api.mathpix.com/v3/text", json=data, headers=headers, timeout=60
+        )
+
+        if response.status_code != 200:
+            print(f"Error {response.status_code}: {response.text}")
+            return None
+
+        result = response.json()
+
+        if "error" in result:
+            print(f"Mathpix error: {result.get('error')}")
+            print(f"Error info: {result.get('error_info', '')}")
+            return None
+
+        return result.get("text", "")
+
+    except Exception as e:
+        print(f"Error processing page {page_num+1}: {str(e)}")
+        return None
+
+
+def extract_text_from_pdf(file_path: str) -> str:
     try:
         cache_key = get_cache_key(file_path)
-        cached_response = load_from_cache(cache_key)
-        if cached_response:
+        if cached := load_from_cache(cache_key):
             print(f"Using cached response for {file_path}")
-            return cached_response
+            return cached
 
-        # Convert PDF to images
         images = convert_from_path(file_path)
-        all_text = []
+        texts: List[str] = []
 
-        # Process each page
-        for i, image in enumerate(images):
-            # Save image to bytes
-            img_byte_arr = io.BytesIO()
-            image.save(img_byte_arr, format="PNG")
-            img_byte_arr = img_byte_arr.getvalue()
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            futures = [
+                executor.submit(process_page, (image, file_path, i))
+                for i, image in enumerate(images)
+            ]
 
-            # Convert to base64
-            img_base64 = base64.b64encode(img_byte_arr).decode()
+            for future in as_completed(futures):
+                if result := future.result():
+                    texts.append(result)
 
-            # Send request to Mathpix
-            url = "https://api.mathpix.com/v3/text"
-            headers = {
-                "app_id": os.environ.get("MATHPIX_APP_ID"),
-                "app_key": os.environ.get("MATHPIX_APP_KEY"),
-                "Content-Type": "application/json",
-            }
+        if not texts:
+            return ""
 
-            print(
-                f"Using Mathpix credentials - app_id: {headers['app_id']}, app_key: {headers['app_key'][:10]}..."
-            )
-
-            data = {
-                "src": f"data:image/png;base64,{img_base64}",
-                "formats": ["text"],
-                "ocr": True,
-                "rm_spaces": True,
-                "enable_tables": True,
-                "enable_markdown": True,
-                "enable_math": True,
-                "enable_handwriting": True,
-            }
-
-            print(f"Sending request to Mathpix for {file_path} page {i+1}")
-            response = requests.post(url, json=data, headers=headers)
-
-            if response.status_code != 200:
-                print(f"Error response from Mathpix: {response.status_code}")
-                print(f"Response content: {response.text}")
-                continue
-
-            result = response.json()
-            print(f"Mathpix response for page {i+1}: {result}")
-
-            if "error" in result:
-                print(f"Mathpix error: {result['error']}")
-                if "error_info" in result:
-                    print(f"Error info: {result['error_info']}")
-                continue
-
-            # Extract content
-            text_content = result.get("text", "")
-            all_text.append(text_content)
-
-        # Combine all text
-        full_content = "\n\n".join(all_text)
-        print(f"Extracted text length: {len(full_content)}")
-
+        full_content = "\n\n".join(texts)
         save_to_cache(cache_key, full_content)
+        print(f"Extracted {len(texts)} pages, total length: {len(full_content)}")
+
         return full_content
 
     except Exception as e:
-        print(f"Error extracting text from PDF: {str(e)}")
-        print(f"Full error details: {str(e.__dict__)}")
+        print(f"Error extracting text: {str(e)}")
         return ""
