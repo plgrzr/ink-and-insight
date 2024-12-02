@@ -1,0 +1,11 @@
+flask
+werkzeug
+pdf2image
+fpdf
+numpy
+scikit-learn
+nltk
+torch
+transformers
+python-dotenv
+requests 
