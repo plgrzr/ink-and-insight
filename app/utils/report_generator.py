@@ -2,7 +2,7 @@ from fpdf import FPDF
 import os
 from datetime import datetime
 
-def generate_report(text_similarity, handwriting_similarity, similarity_index, text1, text2, 
+def generate_report(text_similarity,cross_document_similiarity, handwriting_similarity, similarity_index, text1, text2, 
                    feature_scores=None, anomalies1=None, anomalies2=None, variations1=None, variations2=None):
     """
     Generate a PDF report with similarity analysis results
@@ -128,7 +128,9 @@ def generate_report(text_similarity, handwriting_similarity, similarity_index, t
         
         write_text_sample(text1, 1)
         write_text_sample(text2, 2)
-        
+
+        #cross document similarity
+
         # Save the report
         report_dir = 'reports'
         os.makedirs(report_dir, exist_ok=True)

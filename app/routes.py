@@ -5,6 +5,7 @@ from app.similarity.text_similarity import compute_text_similarity
 from app.similarity.handwriting_similarity import compute_handwriting_similarity
 from app.utils.pdf_processor import extract_text_from_pdf, validate_pdf
 from app.utils.report_generator import generate_report
+import json
 
 main = Blueprint("main", __name__)
 
@@ -77,6 +78,7 @@ def compare_pdfs():
 
         text_analysis = compute_text_similarity(text1, text2)
         text_similarity = text_analysis["similarity_score"]
+        cross_document_similiarity = text_analysis["consistency_analysis"]["cross_document"]
         (
             handwriting_similarity,
             feature_scores,
@@ -95,6 +97,7 @@ def compare_pdfs():
 
         report_path = generate_report(
             text_similarity,
+            cross_document_similiarity,
             handwriting_similarity,
             similarity_index,
             text1,
@@ -106,6 +109,13 @@ def compare_pdfs():
             variations2,
         )
         print("Request Completed")
+        json_string = json.dumps(text_analysis["consistency_analysis"]["cross_document"])
+        print(json_string)
+
+        #store into a file
+        with open("cross_document.json", "w") as outfile:
+            json.dump(text_analysis["consistency_analysis"]["cross_document"], outfile)
+
         return jsonify(
             {
                 "text_similarity": text_similarity,
