@@ -1,1 +1,1084 @@
-[0.2936882638886217, {"confidence_similarity": 0.939683809159534, "symbol_density_similarity": 0.9710412926570621, "line_break_similarity": 0.0, "average_confidence_similarity": 0.9396838086642537}, [{"symbol_density": {"value": 1.0, "mean": 0.20884103641456583, "deviation": 2.6267996150810853}, "paragraph_index": 0, "page_number": 1}, {"symbol_density": {"value": 1.0, "mean": 0.20884103641456583, "deviation": 2.6267996150810853}, "paragraph_index": 5, "page_number": 1}, {"line_breaks": {"value": 12, "mean": 2.4583333333333335, "deviation": 3.40053176981635}, "paragraph_index": 14, "page_number": 1}, {"confidence": {"value": 0.45294383, "mean": 0.8014307508333335, "deviation": 2.2131360099511097}, "paragraph_index": 18, "page_number": 1}, {"line_breaks": {"value": 12, "mean": 2.4583333333333335, "deviation": 3.40053176981635}, "paragraph_index": 21, "page_number": 1}, {"line_breaks": {"value": 9, "mean": 2.4583333333333335, "deviation": 2.331368942625183}, "paragraph_index": 23, "page_number": 1}, {"symbol_density": {"value": 1.0, "mean": 0.20884103641456583, "deviation": 2.6267996150810853}, "paragraph_index": 26, "page_number": 1}, {"symbol_density": {"value": 1.0, "mean": 0.20884103641456583, "deviation": 2.6267996150810853}, "paragraph_index": 29, "page_number": 1}, {"confidence": {"value": 0.45044518, "mean": 0.8014307508333335, "deviation": 2.2290041873795214}, "paragraph_index": 31, "page_number": 1}, {"confidence": {"value": 0.42852628, "mean": 0.8365368210344829, "deviation": 2.693954715894732}, "symbol_density": {"value": 1.0, "mean": 0.26559213623641936, "deviation": 2.1329916326107146}, "paragraph_index": 10, "page_number": 2}, {"line_breaks": {"value": 13, "mean": 3.8275862068965516, "deviation": 2.9407079730969437}, "paragraph_index": 12, "page_number": 2}, {"symbol_density": {"value": 1.0, "mean": 0.26559213623641936, "deviation": 2.1329916326107146}, "paragraph_index": 20, "page_number": 2}, {"confidence": {"value": 0.5331122, "mean": 0.8365368210344829, "deviation": 2.003409487122377}, "paragraph_index": 21, "page_number": 2}, {"symbol_density": {"value": 1.0, "mean": 0.26559213623641936, "deviation": 2.1329916326107146}, "paragraph_index": 23, "page_number": 2}, {"line_breaks": {"value": 7, "mean": 2.491228070175439, "deviation": 2.19618014835953}, "paragraph_index": 2, "page_number": 3}, {"symbol_density": {"value": 1.0, "mean": 0.2837719298245614, "deviation": 2.365107332561127}, "line_breaks": {"value": 7, "mean": 2.491228070175439, "deviation": 2.19618014835953}, "paragraph_index": 3, "page_number": 3}, {"symbol_density": {"value": 1.0, "mean": 0.2837719298245614, "deviation": 2.365107332561127}, "paragraph_index": 12, "page_number": 3}, {"confidence": {"value": 0.39438137, "mean": 0.7404410215789473, "deviation": 2.064643128803126}, "paragraph_index": 15, "page_number": 3}, {"symbol_density": {"value": 1.0, "mean": 0.2837719298245614, "deviation": 2.365107332561127}, "paragraph_index": 23, "page_number": 3}, {"symbol_density": {"value": 1.0, "mean": 0.2837719298245614, "deviation": 2.365107332561127}, "paragraph_index": 25, "page_number": 3}, {"line_breaks": {"value": 8, "mean": 2.491228070175439, "deviation": 2.683270687100749}, "paragraph_index": 30, "page_number": 3}, {"line_breaks": {"value": 8, "mean": 2.491228070175439, "deviation": 2.683270687100749}, "paragraph_index": 35, "page_number": 3}, {"symbol_density": {"value": 1.0, "mean": 0.2837719298245614, "deviation": 2.365107332561127}, "paragraph_index": 42, "page_number": 3}, {"line_breaks": {"value": 8, "mean": 2.491228070175439, "deviation": 2.683270687100749}, "paragraph_index": 47, "page_number": 3}, {"line_breaks": {"value": 7, "mean": 2.372549019607843, "deviation": 2.4636856874450035}, "paragraph_index": 2, "page_number": 4}, {"line_breaks": {"value": 7, "mean": 2.372549019607843, "deviation": 2.4636856874450035}, "paragraph_index": 13, "page_number": 4}, {"symbol_density": {"value": 1.0, "mean": 0.3486639088844154, "deviation": 2.338820886324088}, "paragraph_index": 3, "page_number": 5}, {"confidence": {"value": 0.6582502, "mean": 0.8802865787096775, "deviation": 2.408297899306755}, "paragraph_index": 14, "page_number": 5}, {"line_breaks": {"value": 14, "mean": 5.096774193548387, "deviation": 2.4167792534325745}, "paragraph_index": 21, "page_number": 5}, {"confidence": {"value": 0.61681724, "mean": 0.8802865787096775, "deviation": 2.857696827130791}, "paragraph_index": 27, "page_number": 5}, {"symbol_density": {"value": 1.0, "mean": 0.3139568764568764, "deviation": 2.0060437414803878}, "line_breaks": {"value": 7, "mean": 2.590909090909091, "deviation": 2.1408057353011043}, "paragraph_index": 3, "page_number": 6}, {"symbol_density": {"value": 1.0, "mean": 0.3139568764568764, "deviation": 2.0060437414803878}, "paragraph_index": 9, "page_number": 6}, {"symbol_density": {"value": 1.0, "mean": 0.3139568764568764, "deviation": 2.0060437414803878}, "paragraph_index": 14, "page_number": 6}, {"symbol_density": {"value": 1.0, "mean": 0.3273984408793292, "deviation": 2.3758757560072805}, "paragraph_index": 2, "page_number": 7}, {"line_breaks": {"value": 12, "mean": 4.653846153846154, "deviation": 2.2801196061325193}, "paragraph_index": 6, "page_number": 7}, {"confidence": {"value": 0.5725297, "mean": 0.8483850034615384, "deviation": 2.600865680363407}, "paragraph_index": 17, "page_number": 7}, {"line_breaks": {"value": 6, "mean": 2.282051282051282, "deviation": 2.3230498434060056}, "paragraph_index": 10, "page_number": 8}, {"line_breaks": {"value": 7, "mean": 2.282051282051282, "deviation": 2.947870146115207}, "paragraph_index": 28, "page_number": 8}, {"line_breaks": {"value": 11, "mean": 3.142857142857143, "deviation": 2.682448148335059}, "paragraph_index": 8, "page_number": 9}, {"line_breaks": {"value": 10, "mean": 3.142857142857143, "deviation": 2.3410456567287787}, "paragraph_index": 10, "page_number": 9}, {"symbol_density": {"value": 1.4, "mean": 0.34898048693161476, "deviation": 2.8925240037099824}, "paragraph_index": 16, "page_number": 9}, {"confidence": {"value": 0.36356032, "mean": 0.784107914, "deviation": 2.409765633394689}, "paragraph_index": 27, "page_number": 9}, {"line_breaks": {"value": 11, "mean": 3.6666666666666665, "deviation": 2.36545465451007}, "paragraph_index": 17, "page_number": 10}, {"line_breaks": {"value": 10, "mean": 3.6666666666666665, "deviation": 2.042892656167788}, "paragraph_index": 26, "page_number": 10}, {"confidence": {"value": 0.32336476, "mean": 0.7753085225, "deviation": 2.722165929151128}, "paragraph_index": 30, "page_number": 10}, {"confidence": {"value": 0.42968416, "mean": 0.7753085225, "deviation": 2.0817786236890012}, "line_breaks": {"value": 10, "mean": 3.6666666666666665, "deviation": 2.042892656167788}, "paragraph_index": 33, "page_number": 10}], [{"line_breaks": {"value": 21, "mean": 5.166666666666667, "deviation": 2.6039616122625038}, "paragraph_index": 1, "page_number": 1}, {"confidence": {"value": 0.4098409, "mean": 0.6812333938888888, "deviation": 2.063276950434743}, "paragraph_index": 12, "page_number": 1}, {"symbol_density": {"value": 1.0, "mean": 0.3085732097731, "deviation": 2.4574120029945434}, "paragraph_index": 19, "page_number": 1}, {"symbol_density": {"value": 1.0, "mean": 0.3085732097731, "deviation": 2.4574120029945434}, "paragraph_index": 22, "page_number": 1}, {"symbol_density": {"value": 1.0, "mean": 0.3085732097731, "deviation": 2.4574120029945434}, "paragraph_index": 25, "page_number": 1}, {"line_breaks": {"value": 19, "mean": 5.166666666666667, "deviation": 2.275040145450398}, "paragraph_index": 27, "page_number": 1}, {"line_breaks": {"value": 25, "mean": 5.166666666666667, "deviation": 3.2618045458867155}, "paragraph_index": 34, "page_number": 1}, {"symbol_density": {"value": 1.0, "mean": 0.19655740245145767, "deviation": 2.556086520358257}, "paragraph_index": 12, "page_number": 2}, {"line_breaks": {"value": 23, "mean": 4.717948717948718, "deviation": 2.7061990523707244}, "paragraph_index": 21, "page_number": 2}, {"confidence": {"value": 0.37548658, "mean": 0.7429965584615384, "deviation": 2.3276897048150924}, "paragraph_index": 28, "page_number": 2}, {"symbol_density": {"value": 1.5, "mean": 0.19655740245145767, "deviation": 4.146795382545405}, "paragraph_index": 33, "page_number": 2}, {"line_breaks": {"value": 31, "mean": 4.717948717948718, "deviation": 3.890398357194941}, "paragraph_index": 34, "page_number": 2}, {"line_breaks": {"value": 32, "mean": 6.433333333333334, "deviation": 3.693609274465131}, "paragraph_index": 1, "page_number": 3}, {"symbol_density": {"value": 1.0, "mean": 0.2949156736273105, "deviation": 2.392368821771045}, "paragraph_index": 2, "page_number": 3}, {"symbol_density": {"value": 1.0, "mean": 0.2949156736273105, "deviation": 2.392368821771045}, "paragraph_index": 13, "page_number": 3}, {"confidence": {"value": 0.44942683, "mean": 0.7761216223333333, "deviation": 2.111435617523714}, "paragraph_index": 26, "page_number": 3}, {"line_breaks": {"value": 65, "mean": 9.142857142857142, "deviation": 3.809606336182418}, "paragraph_index": 1, "page_number": 4}, {"confidence": {"value": 0.69038343, "mean": 0.875128332857143, "deviation": 2.549407797195936}, "paragraph_index": 15, "page_number": 4}, {"line_breaks": {"value": 61, "mean": 5.7105263157894735, "deviation": 5.162972597625258}, "paragraph_index": 5, "page_number": 5}, {"line_breaks": {"value": 31, "mean": 5.7105263157894735, "deviation": 2.3615500553631}, "paragraph_index": 6, "page_number": 5}, {"symbol_density": {"value": 1.0, "mean": 0.27320182673274024, "deviation": 2.4857801192225404}, "paragraph_index": 7, "page_number": 5}, {"confidence": {"value": 0.40412438, "mean": 0.760814642368421, "deviation": 2.1752998170850772}, "paragraph_index": 10, "page_number": 5}, {"symbol_density": {"value": 1.0, "mean": 0.27320182673274024, "deviation": 2.4857801192225404}, "paragraph_index": 11, "page_number": 5}, {"symbol_density": {"value": 1.0, "mean": 0.27320182673274024, "deviation": 2.4857801192225404}, "paragraph_index": 31, "page_number": 5}, {"symbol_density": {"value": 1.0, "mean": 0.332098533431455, "deviation": 2.5627255024191133}, "paragraph_index": 0, "page_number": 6}, {"line_breaks": {"value": 73, "mean": 11.1875, "deviation": 3.577537959943162}, "paragraph_index": 7, "page_number": 6}, {"confidence": {"value": 0.5059138, "mean": 0.7899458775, "deviation": 2.649750190925376}, "paragraph_index": 14, "page_number": 6}, {"line_breaks": {"value": 23, "mean": 7.52, "deviation": 2.3748141887501473}, "paragraph_index": 0, "page_number": 7}, {"line_breaks": {"value": 24, "mean": 7.52, "deviation": 2.5282259580492523}, "paragraph_index": 1, "page_number": 7}, {"confidence": {"value": 0.53852, "mean": 0.7879412692, "deviation": 2.5462612979852204}, "paragraph_index": 2, "page_number": 7}, {"symbol_density": {"value": 1.0, "mean": 0.3357096662973166, "deviation": 2.860080783144357}, "paragraph_index": 21, "page_number": 7}, {"line_breaks": {"value": 17, "mean": 5.107142857142857, "deviation": 2.7902524385664584}, "paragraph_index": 1, "page_number": 8}, {"line_breaks": {"value": 18, "mean": 5.107142857142857, "deviation": 3.024868259226701}, "paragraph_index": 24, "page_number": 8}, {"line_breaks": {"value": 23, "mean": 6.9, "deviation": 2.1383197515872654}, "paragraph_index": 4, "page_number": 9}, {"line_breaks": {"value": 29, "mean": 6.9, "deviation": 2.9352091000048794}, "paragraph_index": 13, "page_number": 9}, {"symbol_density": {"value": 2.0, "mean": 0.5600592980668303, "deviation": 3.3503876679455598}, "paragraph_index": 18, "page_number": 9}, {"line_breaks": {"value": 39, "mean": 7.185185185185185, "deviation": 3.7945012757033556}, "paragraph_index": 7, "page_number": 10}, {"symbol_density": {"value": 2.0, "mean": 0.481924104831356, "deviation": 3.479632711838048}, "paragraph_index": 12, "page_number": 10}, {"symbol_density": {"value": 1.0, "mean": 0.38565447878242914, "deviation": 2.2619952405932193}, "paragraph_index": 5, "page_number": 11}, {"line_breaks": {"value": 24, "mean": 7.071428571428571, "deviation": 2.4545422041914526}, "paragraph_index": 10, "page_number": 11}, {"confidence": {"value": 0.41041675, "mean": 0.7332845414285714, "deviation": 2.123193757947305}, "symbol_density": {"value": 1.0, "mean": 0.38565447878242914, "deviation": 2.2619952405932193}, "paragraph_index": 13, "page_number": 11}, {"confidence": {"value": 0.41982877, "mean": 0.7332845414285714, "deviation": 2.061299872449295}, "paragraph_index": 21, "page_number": 11}, {"line_breaks": {"value": 23, "mean": 7.071428571428571, "deviation": 2.309548149935417}, "paragraph_index": 24, "page_number": 11}, {"line_breaks": {"value": 23, "mean": 7.071428571428571, "deviation": 2.309548149935417}, "paragraph_index": 27, "page_number": 11}, {"line_breaks": {"value": 36, "mean": 6.8, "deviation": 4.0936367248719225}, "paragraph_index": 8, "page_number": 12}, {"symbol_density": {"value": 1.0, "mean": 0.4569363239100081, "deviation": 2.2517856662606577}, "paragraph_index": 2, "page_number": 13}], [{"from_page": 1, "to_page": 2, "changes": [{"type": "line_breaks", "difference": 1.3692528735632181, "description": "Line Breaks changed by 136.9%"}]}, {"from_page": 2, "to_page": 3, "changes": [{"type": "line_breaks", "difference": 1.3363581367211128, "description": "Line Breaks changed by 133.6%"}]}, {"from_page": 4, "to_page": 5, "changes": [{"type": "line_breaks", "difference": 2.724225173940544, "description": "Line Breaks changed by 272.4%"}]}, {"from_page": 5, "to_page": 6, "changes": [{"type": "line_breaks", "difference": 2.505865102639296, "description": "Line Breaks changed by 250.6%"}]}, {"from_page": 6, "to_page": 7, "changes": [{"type": "line_breaks", "difference": 2.0629370629370634, "description": "Line Breaks changed by 206.3%"}]}, {"from_page": 7, "to_page": 8, "changes": [{"type": "line_breaks", "difference": 2.3717948717948723, "description": "Line Breaks changed by 237.2%"}]}, {"from_page": 8, "to_page": 9, "changes": [{"type": "line_breaks", "difference": 0.8608058608058609, "description": "Line Breaks changed by 86.1%"}]}, {"from_page": 9, "to_page": 10, "changes": [{"type": "line_breaks", "difference": 0.5238095238095237, "description": "Line Breaks changed by 52.4%"}]}], [{"from_page": 1, "to_page": 2, "changes": [{"type": "line_breaks", "difference": 0.4487179487179489, "description": "Line Breaks changed by 44.9%"}]}, {"from_page": 2, "to_page": 3, "changes": [{"type": "line_breaks", "difference": 1.7153846153846155, "description": "Line Breaks changed by 171.5%"}]}, {"from_page": 3, "to_page": 4, "changes": [{"type": "line_breaks", "difference": 2.709523809523809, "description": "Line Breaks changed by 271.0%"}]}, {"from_page": 4, "to_page": 5, "changes": [{"type": "line_breaks", "difference": 3.432330827067669, "description": "Line Breaks changed by 343.2%"}]}, {"from_page": 5, "to_page": 6, "changes": [{"type": "line_breaks", "difference": 5.4769736842105265, "description": "Line Breaks changed by 547.7%"}]}, {"from_page": 6, "to_page": 7, "changes": [{"type": "line_breaks", "difference": 3.6675000000000004, "description": "Line Breaks changed by 366.8%"}]}, {"from_page": 7, "to_page": 8, "changes": [{"type": "line_breaks", "difference": 2.412857142857143, "description": "Line Breaks changed by 241.3%"}]}, {"from_page": 8, "to_page": 9, "changes": [{"type": "symbol_density", "difference": 0.163844915460641, "description": "Symbol Density changed by 16.4%"}, {"type": "line_breaks", "difference": 1.7928571428571436, "description": "Line Breaks changed by 179.3%"}]}, {"from_page": 9, "to_page": 10, "changes": [{"type": "line_breaks", "difference": 0.28518518518518476, "description": "Line Breaks changed by 28.5%"}]}, {"from_page": 11, "to_page": 12, "changes": [{"type": "line_breaks", "difference": 0.27142857142857135, "description": "Line Breaks changed by 27.1%"}]}, {"from_page": 12, "to_page": 13, "changes": [{"type": "line_breaks", "difference": 2.3, "description": "Line Breaks changed by 230.0%"}]}]]
+[
+  0.2936882638886217,
+  {
+    "confidence_similarity": 0.939683809159534,
+    "symbol_density_similarity": 0.9710412926570621,
+    "line_break_similarity": 0,
+    "average_confidence_similarity": 0.9396838086642537
+  },
+  [
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.20884103641456583,
+        "deviation": 2.6267996150810853
+      },
+      "paragraph_index": 0,
+      "page_number": 1
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.20884103641456583,
+        "deviation": 2.6267996150810853
+      },
+      "paragraph_index": 5,
+      "page_number": 1
+    },
+    {
+      "line_breaks": {
+        "value": 12,
+        "mean": 2.4583333333333335,
+        "deviation": 3.40053176981635
+      },
+      "paragraph_index": 14,
+      "page_number": 1
+    },
+    {
+      "confidence": {
+        "value": 0.45294383,
+        "mean": 0.8014307508333335,
+        "deviation": 2.2131360099511097
+      },
+      "paragraph_index": 18,
+      "page_number": 1
+    },
+    {
+      "line_breaks": {
+        "value": 12,
+        "mean": 2.4583333333333335,
+        "deviation": 3.40053176981635
+      },
+      "paragraph_index": 21,
+      "page_number": 1
+    },
+    {
+      "line_breaks": {
+        "value": 9,
+        "mean": 2.4583333333333335,
+        "deviation": 2.331368942625183
+      },
+      "paragraph_index": 23,
+      "page_number": 1
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.20884103641456583,
+        "deviation": 2.6267996150810853
+      },
+      "paragraph_index": 26,
+      "page_number": 1
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.20884103641456583,
+        "deviation": 2.6267996150810853
+      },
+      "paragraph_index": 29,
+      "page_number": 1
+    },
+    {
+      "confidence": {
+        "value": 0.45044518,
+        "mean": 0.8014307508333335,
+        "deviation": 2.2290041873795214
+      },
+      "paragraph_index": 31,
+      "page_number": 1
+    },
+    {
+      "confidence": {
+        "value": 0.42852628,
+        "mean": 0.8365368210344829,
+        "deviation": 2.693954715894732
+      },
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.26559213623641936,
+        "deviation": 2.1329916326107146
+      },
+      "paragraph_index": 10,
+      "page_number": 2
+    },
+    {
+      "line_breaks": {
+        "value": 13,
+        "mean": 3.8275862068965516,
+        "deviation": 2.9407079730969437
+      },
+      "paragraph_index": 12,
+      "page_number": 2
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.26559213623641936,
+        "deviation": 2.1329916326107146
+      },
+      "paragraph_index": 20,
+      "page_number": 2
+    },
+    {
+      "confidence": {
+        "value": 0.5331122,
+        "mean": 0.8365368210344829,
+        "deviation": 2.003409487122377
+      },
+      "paragraph_index": 21,
+      "page_number": 2
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.26559213623641936,
+        "deviation": 2.1329916326107146
+      },
+      "paragraph_index": 23,
+      "page_number": 2
+    },
+    {
+      "line_breaks": {
+        "value": 7,
+        "mean": 2.491228070175439,
+        "deviation": 2.19618014835953
+      },
+      "paragraph_index": 2,
+      "page_number": 3
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.2837719298245614,
+        "deviation": 2.365107332561127
+      },
+      "line_breaks": {
+        "value": 7,
+        "mean": 2.491228070175439,
+        "deviation": 2.19618014835953
+      },
+      "paragraph_index": 3,
+      "page_number": 3
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.2837719298245614,
+        "deviation": 2.365107332561127
+      },
+      "paragraph_index": 12,
+      "page_number": 3
+    },
+    {
+      "confidence": {
+        "value": 0.39438137,
+        "mean": 0.7404410215789473,
+        "deviation": 2.064643128803126
+      },
+      "paragraph_index": 15,
+      "page_number": 3
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.2837719298245614,
+        "deviation": 2.365107332561127
+      },
+      "paragraph_index": 23,
+      "page_number": 3
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.2837719298245614,
+        "deviation": 2.365107332561127
+      },
+      "paragraph_index": 25,
+      "page_number": 3
+    },
+    {
+      "line_breaks": {
+        "value": 8,
+        "mean": 2.491228070175439,
+        "deviation": 2.683270687100749
+      },
+      "paragraph_index": 30,
+      "page_number": 3
+    },
+    {
+      "line_breaks": {
+        "value": 8,
+        "mean": 2.491228070175439,
+        "deviation": 2.683270687100749
+      },
+      "paragraph_index": 35,
+      "page_number": 3
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.2837719298245614,
+        "deviation": 2.365107332561127
+      },
+      "paragraph_index": 42,
+      "page_number": 3
+    },
+    {
+      "line_breaks": {
+        "value": 8,
+        "mean": 2.491228070175439,
+        "deviation": 2.683270687100749
+      },
+      "paragraph_index": 47,
+      "page_number": 3
+    },
+    {
+      "line_breaks": {
+        "value": 7,
+        "mean": 2.372549019607843,
+        "deviation": 2.4636856874450035
+      },
+      "paragraph_index": 2,
+      "page_number": 4
+    },
+    {
+      "line_breaks": {
+        "value": 7,
+        "mean": 2.372549019607843,
+        "deviation": 2.4636856874450035
+      },
+      "paragraph_index": 13,
+      "page_number": 4
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.3486639088844154,
+        "deviation": 2.338820886324088
+      },
+      "paragraph_index": 3,
+      "page_number": 5
+    },
+    {
+      "confidence": {
+        "value": 0.6582502,
+        "mean": 0.8802865787096775,
+        "deviation": 2.408297899306755
+      },
+      "paragraph_index": 14,
+      "page_number": 5
+    },
+    {
+      "line_breaks": {
+        "value": 14,
+        "mean": 5.096774193548387,
+        "deviation": 2.4167792534325745
+      },
+      "paragraph_index": 21,
+      "page_number": 5
+    },
+    {
+      "confidence": {
+        "value": 0.61681724,
+        "mean": 0.8802865787096775,
+        "deviation": 2.857696827130791
+      },
+      "paragraph_index": 27,
+      "page_number": 5
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.3139568764568764,
+        "deviation": 2.0060437414803878
+      },
+      "line_breaks": {
+        "value": 7,
+        "mean": 2.590909090909091,
+        "deviation": 2.1408057353011043
+      },
+      "paragraph_index": 3,
+      "page_number": 6
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.3139568764568764,
+        "deviation": 2.0060437414803878
+      },
+      "paragraph_index": 9,
+      "page_number": 6
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.3139568764568764,
+        "deviation": 2.0060437414803878
+      },
+      "paragraph_index": 14,
+      "page_number": 6
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.3273984408793292,
+        "deviation": 2.3758757560072805
+      },
+      "paragraph_index": 2,
+      "page_number": 7
+    },
+    {
+      "line_breaks": {
+        "value": 12,
+        "mean": 4.653846153846154,
+        "deviation": 2.2801196061325193
+      },
+      "paragraph_index": 6,
+      "page_number": 7
+    },
+    {
+      "confidence": {
+        "value": 0.5725297,
+        "mean": 0.8483850034615384,
+        "deviation": 2.600865680363407
+      },
+      "paragraph_index": 17,
+      "page_number": 7
+    },
+    {
+      "line_breaks": {
+        "value": 6,
+        "mean": 2.282051282051282,
+        "deviation": 2.3230498434060056
+      },
+      "paragraph_index": 10,
+      "page_number": 8
+    },
+    {
+      "line_breaks": {
+        "value": 7,
+        "mean": 2.282051282051282,
+        "deviation": 2.947870146115207
+      },
+      "paragraph_index": 28,
+      "page_number": 8
+    },
+    {
+      "line_breaks": {
+        "value": 11,
+        "mean": 3.142857142857143,
+        "deviation": 2.682448148335059
+      },
+      "paragraph_index": 8,
+      "page_number": 9
+    },
+    {
+      "line_breaks": {
+        "value": 10,
+        "mean": 3.142857142857143,
+        "deviation": 2.3410456567287787
+      },
+      "paragraph_index": 10,
+      "page_number": 9
+    },
+    {
+      "symbol_density": {
+        "value": 1.4,
+        "mean": 0.34898048693161476,
+        "deviation": 2.8925240037099824
+      },
+      "paragraph_index": 16,
+      "page_number": 9
+    },
+    {
+      "confidence": {
+        "value": 0.36356032,
+        "mean": 0.784107914,
+        "deviation": 2.409765633394689
+      },
+      "paragraph_index": 27,
+      "page_number": 9
+    },
+    {
+      "line_breaks": {
+        "value": 11,
+        "mean": 3.6666666666666665,
+        "deviation": 2.36545465451007
+      },
+      "paragraph_index": 17,
+      "page_number": 10
+    },
+    {
+      "line_breaks": {
+        "value": 10,
+        "mean": 3.6666666666666665,
+        "deviation": 2.042892656167788
+      },
+      "paragraph_index": 26,
+      "page_number": 10
+    },
+    {
+      "confidence": {
+        "value": 0.32336476,
+        "mean": 0.7753085225,
+        "deviation": 2.722165929151128
+      },
+      "paragraph_index": 30,
+      "page_number": 10
+    },
+    {
+      "confidence": {
+        "value": 0.42968416,
+        "mean": 0.7753085225,
+        "deviation": 2.0817786236890012
+      },
+      "line_breaks": {
+        "value": 10,
+        "mean": 3.6666666666666665,
+        "deviation": 2.042892656167788
+      },
+      "paragraph_index": 33,
+      "page_number": 10
+    }
+  ],
+  [
+    {
+      "line_breaks": {
+        "value": 21,
+        "mean": 5.166666666666667,
+        "deviation": 2.6039616122625038
+      },
+      "paragraph_index": 1,
+      "page_number": 1
+    },
+    {
+      "confidence": {
+        "value": 0.4098409,
+        "mean": 0.6812333938888888,
+        "deviation": 2.063276950434743
+      },
+      "paragraph_index": 12,
+      "page_number": 1
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.3085732097731,
+        "deviation": 2.4574120029945434
+      },
+      "paragraph_index": 19,
+      "page_number": 1
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.3085732097731,
+        "deviation": 2.4574120029945434
+      },
+      "paragraph_index": 22,
+      "page_number": 1
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.3085732097731,
+        "deviation": 2.4574120029945434
+      },
+      "paragraph_index": 25,
+      "page_number": 1
+    },
+    {
+      "line_breaks": {
+        "value": 19,
+        "mean": 5.166666666666667,
+        "deviation": 2.275040145450398
+      },
+      "paragraph_index": 27,
+      "page_number": 1
+    },
+    {
+      "line_breaks": {
+        "value": 25,
+        "mean": 5.166666666666667,
+        "deviation": 3.2618045458867155
+      },
+      "paragraph_index": 34,
+      "page_number": 1
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.19655740245145767,
+        "deviation": 2.556086520358257
+      },
+      "paragraph_index": 12,
+      "page_number": 2
+    },
+    {
+      "line_breaks": {
+        "value": 23,
+        "mean": 4.717948717948718,
+        "deviation": 2.7061990523707244
+      },
+      "paragraph_index": 21,
+      "page_number": 2
+    },
+    {
+      "confidence": {
+        "value": 0.37548658,
+        "mean": 0.7429965584615384,
+        "deviation": 2.3276897048150924
+      },
+      "paragraph_index": 28,
+      "page_number": 2
+    },
+    {
+      "symbol_density": {
+        "value": 1.5,
+        "mean": 0.19655740245145767,
+        "deviation": 4.146795382545405
+      },
+      "paragraph_index": 33,
+      "page_number": 2
+    },
+    {
+      "line_breaks": {
+        "value": 31,
+        "mean": 4.717948717948718,
+        "deviation": 3.890398357194941
+      },
+      "paragraph_index": 34,
+      "page_number": 2
+    },
+    {
+      "line_breaks": {
+        "value": 32,
+        "mean": 6.433333333333334,
+        "deviation": 3.693609274465131
+      },
+      "paragraph_index": 1,
+      "page_number": 3
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.2949156736273105,
+        "deviation": 2.392368821771045
+      },
+      "paragraph_index": 2,
+      "page_number": 3
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.2949156736273105,
+        "deviation": 2.392368821771045
+      },
+      "paragraph_index": 13,
+      "page_number": 3
+    },
+    {
+      "confidence": {
+        "value": 0.44942683,
+        "mean": 0.7761216223333333,
+        "deviation": 2.111435617523714
+      },
+      "paragraph_index": 26,
+      "page_number": 3
+    },
+    {
+      "line_breaks": {
+        "value": 65,
+        "mean": 9.142857142857142,
+        "deviation": 3.809606336182418
+      },
+      "paragraph_index": 1,
+      "page_number": 4
+    },
+    {
+      "confidence": {
+        "value": 0.69038343,
+        "mean": 0.875128332857143,
+        "deviation": 2.549407797195936
+      },
+      "paragraph_index": 15,
+      "page_number": 4
+    },
+    {
+      "line_breaks": {
+        "value": 61,
+        "mean": 5.7105263157894735,
+        "deviation": 5.162972597625258
+      },
+      "paragraph_index": 5,
+      "page_number": 5
+    },
+    {
+      "line_breaks": {
+        "value": 31,
+        "mean": 5.7105263157894735,
+        "deviation": 2.3615500553631
+      },
+      "paragraph_index": 6,
+      "page_number": 5
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.27320182673274024,
+        "deviation": 2.4857801192225404
+      },
+      "paragraph_index": 7,
+      "page_number": 5
+    },
+    {
+      "confidence": {
+        "value": 0.40412438,
+        "mean": 0.760814642368421,
+        "deviation": 2.1752998170850772
+      },
+      "paragraph_index": 10,
+      "page_number": 5
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.27320182673274024,
+        "deviation": 2.4857801192225404
+      },
+      "paragraph_index": 11,
+      "page_number": 5
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.27320182673274024,
+        "deviation": 2.4857801192225404
+      },
+      "paragraph_index": 31,
+      "page_number": 5
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.332098533431455,
+        "deviation": 2.5627255024191133
+      },
+      "paragraph_index": 0,
+      "page_number": 6
+    },
+    {
+      "line_breaks": {
+        "value": 73,
+        "mean": 11.1875,
+        "deviation": 3.577537959943162
+      },
+      "paragraph_index": 7,
+      "page_number": 6
+    },
+    {
+      "confidence": {
+        "value": 0.5059138,
+        "mean": 0.7899458775,
+        "deviation": 2.649750190925376
+      },
+      "paragraph_index": 14,
+      "page_number": 6
+    },
+    {
+      "line_breaks": {
+        "value": 23,
+        "mean": 7.52,
+        "deviation": 2.3748141887501473
+      },
+      "paragraph_index": 0,
+      "page_number": 7
+    },
+    {
+      "line_breaks": {
+        "value": 24,
+        "mean": 7.52,
+        "deviation": 2.5282259580492523
+      },
+      "paragraph_index": 1,
+      "page_number": 7
+    },
+    {
+      "confidence": {
+        "value": 0.53852,
+        "mean": 0.7879412692,
+        "deviation": 2.5462612979852204
+      },
+      "paragraph_index": 2,
+      "page_number": 7
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.3357096662973166,
+        "deviation": 2.860080783144357
+      },
+      "paragraph_index": 21,
+      "page_number": 7
+    },
+    {
+      "line_breaks": {
+        "value": 17,
+        "mean": 5.107142857142857,
+        "deviation": 2.7902524385664584
+      },
+      "paragraph_index": 1,
+      "page_number": 8
+    },
+    {
+      "line_breaks": {
+        "value": 18,
+        "mean": 5.107142857142857,
+        "deviation": 3.024868259226701
+      },
+      "paragraph_index": 24,
+      "page_number": 8
+    },
+    {
+      "line_breaks": {
+        "value": 23,
+        "mean": 6.9,
+        "deviation": 2.1383197515872654
+      },
+      "paragraph_index": 4,
+      "page_number": 9
+    },
+    {
+      "line_breaks": {
+        "value": 29,
+        "mean": 6.9,
+        "deviation": 2.9352091000048794
+      },
+      "paragraph_index": 13,
+      "page_number": 9
+    },
+    {
+      "symbol_density": {
+        "value": 2,
+        "mean": 0.5600592980668303,
+        "deviation": 3.3503876679455598
+      },
+      "paragraph_index": 18,
+      "page_number": 9
+    },
+    {
+      "line_breaks": {
+        "value": 39,
+        "mean": 7.185185185185185,
+        "deviation": 3.7945012757033556
+      },
+      "paragraph_index": 7,
+      "page_number": 10
+    },
+    {
+      "symbol_density": {
+        "value": 2,
+        "mean": 0.481924104831356,
+        "deviation": 3.479632711838048
+      },
+      "paragraph_index": 12,
+      "page_number": 10
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.38565447878242914,
+        "deviation": 2.2619952405932193
+      },
+      "paragraph_index": 5,
+      "page_number": 11
+    },
+    {
+      "line_breaks": {
+        "value": 24,
+        "mean": 7.071428571428571,
+        "deviation": 2.4545422041914526
+      },
+      "paragraph_index": 10,
+      "page_number": 11
+    },
+    {
+      "confidence": {
+        "value": 0.41041675,
+        "mean": 0.7332845414285714,
+        "deviation": 2.123193757947305
+      },
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.38565447878242914,
+        "deviation": 2.2619952405932193
+      },
+      "paragraph_index": 13,
+      "page_number": 11
+    },
+    {
+      "confidence": {
+        "value": 0.41982877,
+        "mean": 0.7332845414285714,
+        "deviation": 2.061299872449295
+      },
+      "paragraph_index": 21,
+      "page_number": 11
+    },
+    {
+      "line_breaks": {
+        "value": 23,
+        "mean": 7.071428571428571,
+        "deviation": 2.309548149935417
+      },
+      "paragraph_index": 24,
+      "page_number": 11
+    },
+    {
+      "line_breaks": {
+        "value": 23,
+        "mean": 7.071428571428571,
+        "deviation": 2.309548149935417
+      },
+      "paragraph_index": 27,
+      "page_number": 11
+    },
+    {
+      "line_breaks": {
+        "value": 36,
+        "mean": 6.8,
+        "deviation": 4.0936367248719225
+      },
+      "paragraph_index": 8,
+      "page_number": 12
+    },
+    {
+      "symbol_density": {
+        "value": 1,
+        "mean": 0.4569363239100081,
+        "deviation": 2.2517856662606577
+      },
+      "paragraph_index": 2,
+      "page_number": 13
+    }
+  ],
+  [
+    {
+      "from_page": 1,
+      "to_page": 2,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 1.3692528735632181,
+          "description": "Line Breaks changed by 136.9%"
+        }
+      ]
+    },
+    {
+      "from_page": 2,
+      "to_page": 3,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 1.3363581367211128,
+          "description": "Line Breaks changed by 133.6%"
+        }
+      ]
+    },
+    {
+      "from_page": 4,
+      "to_page": 5,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 2.724225173940544,
+          "description": "Line Breaks changed by 272.4%"
+        }
+      ]
+    },
+    {
+      "from_page": 5,
+      "to_page": 6,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 2.505865102639296,
+          "description": "Line Breaks changed by 250.6%"
+        }
+      ]
+    },
+    {
+      "from_page": 6,
+      "to_page": 7,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 2.0629370629370634,
+          "description": "Line Breaks changed by 206.3%"
+        }
+      ]
+    },
+    {
+      "from_page": 7,
+      "to_page": 8,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 2.3717948717948723,
+          "description": "Line Breaks changed by 237.2%"
+        }
+      ]
+    },
+    {
+      "from_page": 8,
+      "to_page": 9,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 0.8608058608058609,
+          "description": "Line Breaks changed by 86.1%"
+        }
+      ]
+    },
+    {
+      "from_page": 9,
+      "to_page": 10,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 0.5238095238095237,
+          "description": "Line Breaks changed by 52.4%"
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "from_page": 1,
+      "to_page": 2,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 0.4487179487179489,
+          "description": "Line Breaks changed by 44.9%"
+        }
+      ]
+    },
+    {
+      "from_page": 2,
+      "to_page": 3,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 1.7153846153846155,
+          "description": "Line Breaks changed by 171.5%"
+        }
+      ]
+    },
+    {
+      "from_page": 3,
+      "to_page": 4,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 2.709523809523809,
+          "description": "Line Breaks changed by 271.0%"
+        }
+      ]
+    },
+    {
+      "from_page": 4,
+      "to_page": 5,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 3.432330827067669,
+          "description": "Line Breaks changed by 343.2%"
+        }
+      ]
+    },
+    {
+      "from_page": 5,
+      "to_page": 6,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 5.4769736842105265,
+          "description": "Line Breaks changed by 547.7%"
+        }
+      ]
+    },
+    {
+      "from_page": 6,
+      "to_page": 7,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 3.6675000000000004,
+          "description": "Line Breaks changed by 366.8%"
+        }
+      ]
+    },
+    {
+      "from_page": 7,
+      "to_page": 8,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 2.412857142857143,
+          "description": "Line Breaks changed by 241.3%"
+        }
+      ]
+    },
+    {
+      "from_page": 8,
+      "to_page": 9,
+      "changes": [
+        {
+          "type": "symbol_density",
+          "difference": 0.163844915460641,
+          "description": "Symbol Density changed by 16.4%"
+        },
+        {
+          "type": "line_breaks",
+          "difference": 1.7928571428571436,
+          "description": "Line Breaks changed by 179.3%"
+        }
+      ]
+    },
+    {
+      "from_page": 9,
+      "to_page": 10,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 0.28518518518518476,
+          "description": "Line Breaks changed by 28.5%"
+        }
+      ]
+    },
+    {
+      "from_page": 11,
+      "to_page": 12,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 0.27142857142857135,
+          "description": "Line Breaks changed by 27.1%"
+        }
+      ]
+    },
+    {
+      "from_page": 12,
+      "to_page": 13,
+      "changes": [
+        {
+          "type": "line_breaks",
+          "difference": 2.3,
+          "description": "Line Breaks changed by 230.0%"
+        }
+      ]
+    }
+  ]
+]

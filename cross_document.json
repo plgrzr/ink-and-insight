@@ -1,0 +1,534 @@
+[
+    {
+        "doc1_segment_index": 0,
+        "doc2_segment_index": 4,
+        "doc1_segment_text": "\\( 6 / 7 / 24 \\).",
+        "doc2_segment_text": "We need to find \\( A^{-1} \\).",
+        "similarity_score": 0.5245761871337891
+    },
+    {
+        "doc1_segment_index": 0,
+        "doc2_segment_index": 6,
+        "doc1_segment_text": "\\( 6 / 7 / 24 \\).",
+        "doc2_segment_text": "We know that \\( A A^{-I}=I \\quad\\left(\\right.",
+        "similarity_score": 0.5215840935707092
+    },
+    {
+        "doc1_segment_index": 0,
+        "doc2_segment_index": 9,
+        "doc1_segment_text": "\\( 6 / 7 / 24 \\).",
+        "doc2_segment_text": "\\( 6 / 7 / 24 \\).",
+        "similarity_score": 1.0000001192092896
+    },
+    {
+        "doc1_segment_index": 0,
+        "doc2_segment_index": 14,
+        "doc1_segment_text": "\\( 6 / 7 / 24 \\).",
+        "doc2_segment_text": "Given: \\( C=A B \\)",
+        "similarity_score": 0.5726412534713745
+    },
+    {
+        "doc1_segment_index": 0,
+        "doc2_segment_index": 15,
+        "doc1_segment_text": "\\( 6 / 7 / 24 \\).",
+        "doc2_segment_text": "Where \\( A, B, C \\) are of ordern.",
+        "similarity_score": 0.5322271585464478
+    },
+    {
+        "doc1_segment_index": 0,
+        "doc2_segment_index": 20,
+        "doc1_segment_text": "\\( 6 / 7 / 24 \\).",
+        "doc2_segment_text": "Let \\( L \\) be.",
+        "similarity_score": 0.6059562563896179
+    },
+    {
+        "doc1_segment_index": 1,
+        "doc2_segment_index": 10,
+        "doc1_segment_text": "ASSIGNMENT-1.",
+        "doc2_segment_text": "ASSIGNMENT-1.",
+        "similarity_score": 0.9999999403953552
+    },
+    {
+        "doc1_segment_index": 1,
+        "doc2_segment_index": 13,
+        "doc1_segment_text": "ASSIGNMENT-1.",
+        "doc2_segment_text": "1.",
+        "similarity_score": 0.6236082315444946
+    },
+    {
+        "doc1_segment_index": 2,
+        "doc2_segment_index": 11,
+        "doc1_segment_text": "Aadhithyan N\nAMLCZC416 - MFML.",
+        "doc2_segment_text": "Aadhithyan N\nAMLCZC416 - MFML.",
+        "similarity_score": 1.0
+    },
+    {
+        "doc1_segment_index": 3,
+        "doc2_segment_index": 12,
+        "doc1_segment_text": "2023ad05098.",
+        "doc2_segment_text": "2023ad05098.",
+        "similarity_score": 1.0
+    },
+    {
+        "doc1_segment_index": 4,
+        "doc2_segment_index": 10,
+        "doc1_segment_text": "1.",
+        "doc2_segment_text": "ASSIGNMENT-1.",
+        "similarity_score": 0.6236082315444946
+    },
+    {
+        "doc1_segment_index": 4,
+        "doc2_segment_index": 13,
+        "doc1_segment_text": "1.",
+        "doc2_segment_text": "1.",
+        "similarity_score": 1.0
+    },
+    {
+        "doc1_segment_index": 5,
+        "doc2_segment_index": 2,
+        "doc1_segment_text": "Given: \\( C=A B \\)",
+        "doc2_segment_text": "Proof:-Let \\( A \\) be a lower triangular matrix \\( \\left[A_{i j}=0\\right.",
+        "similarity_score": 0.5171070098876953
+    },
+    {
+        "doc1_segment_index": 5,
+        "doc2_segment_index": 4,
+        "doc1_segment_text": "Given: \\( C=A B \\)",
+        "doc2_segment_text": "We need to find \\( A^{-1} \\).",
+        "similarity_score": 0.5096666216850281
+    },
+    {
+        "doc1_segment_index": 5,
+        "doc2_segment_index": 6,
+        "doc1_segment_text": "Given: \\( C=A B \\)",
+        "doc2_segment_text": "We know that \\( A A^{-I}=I \\quad\\left(\\right.",
+        "similarity_score": 0.5240759253501892
+    },
+    {
+        "doc1_segment_index": 5,
+        "doc2_segment_index": 9,
+        "doc1_segment_text": "Given: \\( C=A B \\)",
+        "doc2_segment_text": "\\( 6 / 7 / 24 \\).",
+        "similarity_score": 0.5726412534713745
+    },
+    {
+        "doc1_segment_index": 5,
+        "doc2_segment_index": 14,
+        "doc1_segment_text": "Given: \\( C=A B \\)",
+        "doc2_segment_text": "Given: \\( C=A B \\)",
+        "similarity_score": 0.9999998807907104
+    },
+    {
+        "doc1_segment_index": 5,
+        "doc2_segment_index": 15,
+        "doc1_segment_text": "Given: \\( C=A B \\)",
+        "doc2_segment_text": "Where \\( A, B, C \\) are of ordern.",
+        "similarity_score": 0.6439684629440308
+    },
+    {
+        "doc1_segment_index": 5,
+        "doc2_segment_index": 20,
+        "doc1_segment_text": "Given: \\( C=A B \\)",
+        "doc2_segment_text": "Let \\( L \\) be.",
+        "similarity_score": 0.62306147813797
+    },
+    {
+        "doc1_segment_index": 6,
+        "doc2_segment_index": 9,
+        "doc1_segment_text": "Where \\( A, B, C \\) are of ordern.",
+        "doc2_segment_text": "\\( 6 / 7 / 24 \\).",
+        "similarity_score": 0.5322271585464478
+    },
+    {
+        "doc1_segment_index": 6,
+        "doc2_segment_index": 14,
+        "doc1_segment_text": "Where \\( A, B, C \\) are of ordern.",
+        "doc2_segment_text": "Given: \\( C=A B \\)",
+        "similarity_score": 0.6439684629440308
+    },
+    {
+        "doc1_segment_index": 6,
+        "doc2_segment_index": 15,
+        "doc1_segment_text": "Where \\( A, B, C \\) are of ordern.",
+        "doc2_segment_text": "Where \\( A, B, C \\) are of ordern.",
+        "similarity_score": 1.0
+    },
+    {
+        "doc1_segment_index": 6,
+        "doc2_segment_index": 20,
+        "doc1_segment_text": "Where \\( A, B, C \\) are of ordern.",
+        "doc2_segment_text": "Let \\( L \\) be.",
+        "similarity_score": 0.5223069190979004
+    },
+    {
+        "doc1_segment_index": 7,
+        "doc2_segment_index": 2,
+        "doc1_segment_text": "\\( \\mathrm{C}_{2}= \\)\nProve: Inverse of a lower Dmatrix is a lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "Proof:-Let \\( A \\) be a lower triangular matrix \\( \\left[A_{i j}=0\\right.",
+        "similarity_score": 0.7205008268356323
+    },
+    {
+        "doc1_segment_index": 7,
+        "doc2_segment_index": 7,
+        "doc1_segment_text": "\\( \\mathrm{C}_{2}= \\)\nProve: Inverse of a lower Dmatrix is a lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "\\) delentily watrix \\( \\left.=\\left[\\begin{array}{lll}1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1\\end{array}\\right]\\right) \\)\nFrist row of \\( A A^{-1} \\) :\n\\[\n\\begin{array}{ll}\n(1,1) \\Rightarrow 2 * b_{11}=1, & \\text { so } b_{12}=1 / 2 \\\\\n(1,2) & \\Rightarrow 2 * b_{12}=0, \\\\\n(1,3) & \\Rightarrow 2 * b_{13}=0, \\\\\nb_{12}=0 \\\\\n( & \\text { so } b_{13}=0\n\\end{array}\n\\]",
+        "similarity_score": 0.5021021366119385
+    },
+    {
+        "doc1_segment_index": 7,
+        "doc2_segment_index": 16,
+        "doc1_segment_text": "\\( \\mathrm{C}_{2}= \\)\nProve: Inverse of a lower Dmatrix is a lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "\\( \\mathrm{C}_{2}= \\)\nProve: Inverse of a lower Dmatrix is a lower \\( \\Delta \\) matrix.",
+        "similarity_score": 1.0
+    },
+    {
+        "doc1_segment_index": 7,
+        "doc2_segment_index": 18,
+        "doc1_segment_text": "\\( \\mathrm{C}_{2}= \\)\nProve: Inverse of a lower Dmatrix is a lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "similarity_score": 0.6837930679321289
+    },
+    {
+        "doc1_segment_index": 7,
+        "doc2_segment_index": 19,
+        "doc1_segment_text": "\\( \\mathrm{C}_{2}= \\)\nProve: Inverse of a lower Dmatrix is a lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "similarity_score": 0.5892376899719238
+    },
+    {
+        "doc1_segment_index": 8,
+        "doc2_segment_index": 17,
+        "doc1_segment_text": "Proof:\nLe Lower amatrix of \\( n \\times n \\).",
+        "doc2_segment_text": "Proof:\nLe Lower amatrix of \\( n \\times n \\).",
+        "similarity_score": 1.0000001192092896
+    },
+    {
+        "doc1_segment_index": 8,
+        "doc2_segment_index": 22,
+        "doc1_segment_text": "Proof:\nLe Lower amatrix of \\( n \\times n \\).",
+        "doc2_segment_text": "Lel's assume \\( L^{-1} \\) has a general form.",
+        "similarity_score": 0.5193180441856384
+    },
+    {
+        "doc1_segment_index": 9,
+        "doc2_segment_index": 2,
+        "doc1_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "Proof:-Let \\( A \\) be a lower triangular matrix \\( \\left[A_{i j}=0\\right.",
+        "similarity_score": 0.6450304985046387
+    },
+    {
+        "doc1_segment_index": 9,
+        "doc2_segment_index": 4,
+        "doc1_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "We need to find \\( A^{-1} \\).",
+        "similarity_score": 0.6675317883491516
+    },
+    {
+        "doc1_segment_index": 9,
+        "doc2_segment_index": 6,
+        "doc1_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "We know that \\( A A^{-I}=I \\quad\\left(\\right.",
+        "similarity_score": 0.578607439994812
+    },
+    {
+        "doc1_segment_index": 9,
+        "doc2_segment_index": 16,
+        "doc1_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "\\( \\mathrm{C}_{2}= \\)\nProve: Inverse of a lower Dmatrix is a lower \\( \\Delta \\) matrix.",
+        "similarity_score": 0.6837930679321289
+    },
+    {
+        "doc1_segment_index": 9,
+        "doc2_segment_index": 18,
+        "doc1_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "similarity_score": 1.0
+    },
+    {
+        "doc1_segment_index": 9,
+        "doc2_segment_index": 19,
+        "doc1_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "similarity_score": 0.7085460424423218
+    },
+    {
+        "doc1_segment_index": 9,
+        "doc2_segment_index": 22,
+        "doc1_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "Lel's assume \\( L^{-1} \\) has a general form.",
+        "similarity_score": 0.5517761707305908
+    },
+    {
+        "doc1_segment_index": 9,
+        "doc2_segment_index": 24,
+        "doc1_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "doc2_segment_text": "For \\( i^{\\text {th }} \\) row of \\( L L^{-1} \\), it is a \\( L C \\) of rows \\( L^{-1} \\), with.",
+        "similarity_score": 0.5933853387832642
+    },
+    {
+        "doc1_segment_index": 10,
+        "doc2_segment_index": 2,
+        "doc1_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "doc2_segment_text": "Proof:-Let \\( A \\) be a lower triangular matrix \\( \\left[A_{i j}=0\\right.",
+        "similarity_score": 0.6004194617271423
+    },
+    {
+        "doc1_segment_index": 10,
+        "doc2_segment_index": 4,
+        "doc1_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "doc2_segment_text": "We need to find \\( A^{-1} \\).",
+        "similarity_score": 0.540082573890686
+    },
+    {
+        "doc1_segment_index": 10,
+        "doc2_segment_index": 6,
+        "doc1_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "doc2_segment_text": "We know that \\( A A^{-I}=I \\quad\\left(\\right.",
+        "similarity_score": 0.6668025851249695
+    },
+    {
+        "doc1_segment_index": 10,
+        "doc2_segment_index": 16,
+        "doc1_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "doc2_segment_text": "\\( \\mathrm{C}_{2}= \\)\nProve: Inverse of a lower Dmatrix is a lower \\( \\Delta \\) matrix.",
+        "similarity_score": 0.5892376899719238
+    },
+    {
+        "doc1_segment_index": 10,
+        "doc2_segment_index": 18,
+        "doc1_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "doc2_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "similarity_score": 0.7085460424423218
+    },
+    {
+        "doc1_segment_index": 10,
+        "doc2_segment_index": 19,
+        "doc1_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "doc2_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "similarity_score": 1.0
+    },
+    {
+        "doc1_segment_index": 10,
+        "doc2_segment_index": 22,
+        "doc1_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "doc2_segment_text": "Lel's assume \\( L^{-1} \\) has a general form.",
+        "similarity_score": 0.5225200057029724
+    },
+    {
+        "doc1_segment_index": 10,
+        "doc2_segment_index": 24,
+        "doc1_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "doc2_segment_text": "For \\( i^{\\text {th }} \\) row of \\( L L^{-1} \\), it is a \\( L C \\) of rows \\( L^{-1} \\), with.",
+        "similarity_score": 0.5985156893730164
+    },
+    {
+        "doc1_segment_index": 11,
+        "doc2_segment_index": 4,
+        "doc1_segment_text": "Let \\( L \\) be.",
+        "doc2_segment_text": "We need to find \\( A^{-1} \\).",
+        "similarity_score": 0.5114383697509766
+    },
+    {
+        "doc1_segment_index": 11,
+        "doc2_segment_index": 9,
+        "doc1_segment_text": "Let \\( L \\) be.",
+        "doc2_segment_text": "\\( 6 / 7 / 24 \\).",
+        "similarity_score": 0.6059562563896179
+    },
+    {
+        "doc1_segment_index": 11,
+        "doc2_segment_index": 14,
+        "doc1_segment_text": "Let \\( L \\) be.",
+        "doc2_segment_text": "Given: \\( C=A B \\)",
+        "similarity_score": 0.62306147813797
+    },
+    {
+        "doc1_segment_index": 11,
+        "doc2_segment_index": 15,
+        "doc1_segment_text": "Let \\( L \\) be.",
+        "doc2_segment_text": "Where \\( A, B, C \\) are of ordern.",
+        "similarity_score": 0.5223069190979004
+    },
+    {
+        "doc1_segment_index": 11,
+        "doc2_segment_index": 20,
+        "doc1_segment_text": "Let \\( L \\) be.",
+        "doc2_segment_text": "Let \\( L \\) be.",
+        "similarity_score": 1.0000001192092896
+    },
+    {
+        "doc1_segment_index": 12,
+        "doc2_segment_index": 3,
+        "doc1_segment_text": "\\[\nL=\\left[\\begin{array}{ccccc}\n\\eta_{11} & 0 & 0 & \\cdots & 0 \\\\\n\\eta_{21} & z_{22} & 0 & \\cdots & 0 \\\\\n\\vdots & \\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & & \\eta_{n n}\n\\end{array}\\right]\n\\]",
+        "doc2_segment_text": "\\) for \\( \\left.i<j\\right] \\)\n\\[\nA=\\left[\\begin{array}{lll}\n2 & 0 & 0 \\\\\n3 & 4 & 0 \\\\\n1 & 2 & 5\n\\end{array}\\right]\n\\]",
+        "similarity_score": 0.7616718411445618
+    },
+    {
+        "doc1_segment_index": 12,
+        "doc2_segment_index": 5,
+        "doc1_segment_text": "\\[\nL=\\left[\\begin{array}{ccccc}\n\\eta_{11} & 0 & 0 & \\cdots & 0 \\\\\n\\eta_{21} & z_{22} & 0 & \\cdots & 0 \\\\\n\\vdots & \\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & & \\eta_{n n}\n\\end{array}\\right]\n\\]",
+        "doc2_segment_text": "\\[\n\\text { Let } A^{-1}=\\left[\\begin{array}{lll}\nA & \\\\\nb_{11} & b_{12} & b_{13} \\\\\nb_{21} & b_{22} & b_{23} \\\\\nb_{31} & b_{32} & b_{33}\n\\end{array}\\right]\n\\]",
+        "similarity_score": 0.7206435203552246
+    },
+    {
+        "doc1_segment_index": 12,
+        "doc2_segment_index": 7,
+        "doc1_segment_text": "\\[\nL=\\left[\\begin{array}{ccccc}\n\\eta_{11} & 0 & 0 & \\cdots & 0 \\\\\n\\eta_{21} & z_{22} & 0 & \\cdots & 0 \\\\\n\\vdots & \\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & & \\eta_{n n}\n\\end{array}\\right]\n\\]",
+        "doc2_segment_text": "\\) delentily watrix \\( \\left.=\\left[\\begin{array}{lll}1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1\\end{array}\\right]\\right) \\)\nFrist row of \\( A A^{-1} \\) :\n\\[\n\\begin{array}{ll}\n(1,1) \\Rightarrow 2 * b_{11}=1, & \\text { so } b_{12}=1 / 2 \\\\\n(1,2) & \\Rightarrow 2 * b_{12}=0, \\\\\n(1,3) & \\Rightarrow 2 * b_{13}=0, \\\\\nb_{12}=0 \\\\\n( & \\text { so } b_{13}=0\n\\end{array}\n\\]",
+        "similarity_score": 0.7186068892478943
+    },
+    {
+        "doc1_segment_index": 12,
+        "doc2_segment_index": 8,
+        "doc1_segment_text": "\\[\nL=\\left[\\begin{array}{ccccc}\n\\eta_{11} & 0 & 0 & \\cdots & 0 \\\\\n\\eta_{21} & z_{22} & 0 & \\cdots & 0 \\\\\n\\vdots & \\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & & \\eta_{n n}\n\\end{array}\\right]\n\\]",
+        "doc2_segment_text": "Second row of \\( A A^{-1} \\);\n\\[\n\\begin{array}{l}\n(2,1) \\Rightarrow 3 b_{12}+4 * b_{21}=0, \\text { we know } b_{11}=1 / 2 \\text {, so } b_{12}=-3 / 8 \\\\\n(2,2) \\Rightarrow 4 * b_{22}=1, \\\\\n(2,3) \\Rightarrow 4 * b_{23}=0,\n\\end{array}\n\\]\n\\( 3^{\\text {rd }} \\) row of \\( A A^{-1} \\) :\n\\( (3,1) \\Rightarrow 1 * b_{11}+2 * b_{21}+5 * b_{31}=0 \\), substitutry \\( b_{11} \\& b_{21} \\)\n\\[\n\\begin{array}{lll}\n(3,2) \\Rightarrow 2+b_{22}+5 b_{32}=0, & \\text { so } b_{31}=1 / 40 \\\\\n(3,3) \\Rightarrow 5 * b_{33}=1, & \\text { so } b_{33}=1 / 5\n\\end{array}\n\\]",
+        "similarity_score": 0.5319381952285767
+    },
+    {
+        "doc1_segment_index": 12,
+        "doc2_segment_index": 21,
+        "doc1_segment_text": "\\[\nL=\\left[\\begin{array}{ccccc}\n\\eta_{11} & 0 & 0 & \\cdots & 0 \\\\\n\\eta_{21} & z_{22} & 0 & \\cdots & 0 \\\\\n\\vdots & \\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & & \\eta_{n n}\n\\end{array}\\right]\n\\]",
+        "doc2_segment_text": "\\[\nL=\\left[\\begin{array}{ccccc}\n\\eta_{11} & 0 & 0 & \\cdots & 0 \\\\\n\\eta_{21} & z_{22} & 0 & \\cdots & 0 \\\\\n\\vdots & \\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & & \\eta_{n n}\n\\end{array}\\right]\n\\]",
+        "similarity_score": 1.0000001192092896
+    },
+    {
+        "doc1_segment_index": 12,
+        "doc2_segment_index": 23,
+        "doc1_segment_text": "\\[\nL=\\left[\\begin{array}{ccccc}\n\\eta_{11} & 0 & 0 & \\cdots & 0 \\\\\n\\eta_{21} & z_{22} & 0 & \\cdots & 0 \\\\\n\\vdots & \\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & & \\eta_{n n}\n\\end{array}\\right]\n\\]",
+        "doc2_segment_text": "\\[\n\\begin{aligned}\nL^{-1} & =\\left[\\begin{array}{ccccc}\nm_{11} & 0 & 0 & \\cdots & 0 \\\\\nm_{21} & m_{22} & \\cdots & 0 \\\\\n\\vdots & \\vdots & & \\vdots \\\\\nm_{n_{1}} & m_{n_{2}} & \\cdots & \\cdots & n_{n_{n}}\n\\end{array}\\right] \\\\\n\\Rightarrow L \\cdot L^{-1} & =\\left[\\begin{array}{cccc}\nl_{11} & 0 & 0 & 0 \\\\\n\\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & l_{n n}\n\\end{array}\\right]\\left[\\begin{array}{cccc}\nm_{11} & 0 & 0 & 0 \\\\\n\\vdots & & \\vdots \\\\\nm_{n 1} & \\cdots & \\cdots & m_{n_{n}}\n\\end{array}\\right]\n\\end{aligned}\n\\]",
+        "similarity_score": 0.8163068890571594
+    },
+    {
+        "doc1_segment_index": 13,
+        "doc2_segment_index": 4,
+        "doc1_segment_text": "Lel's assume \\( L^{-1} \\) has a general form.",
+        "doc2_segment_text": "We need to find \\( A^{-1} \\).",
+        "similarity_score": 0.553064227104187
+    },
+    {
+        "doc1_segment_index": 13,
+        "doc2_segment_index": 17,
+        "doc1_segment_text": "Lel's assume \\( L^{-1} \\) has a general form.",
+        "doc2_segment_text": "Proof:\nLe Lower amatrix of \\( n \\times n \\).",
+        "similarity_score": 0.5193180441856384
+    },
+    {
+        "doc1_segment_index": 13,
+        "doc2_segment_index": 18,
+        "doc1_segment_text": "Lel's assume \\( L^{-1} \\) has a general form.",
+        "doc2_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "similarity_score": 0.5517761707305908
+    },
+    {
+        "doc1_segment_index": 13,
+        "doc2_segment_index": 19,
+        "doc1_segment_text": "Lel's assume \\( L^{-1} \\) has a general form.",
+        "doc2_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "similarity_score": 0.5225200057029724
+    },
+    {
+        "doc1_segment_index": 13,
+        "doc2_segment_index": 22,
+        "doc1_segment_text": "Lel's assume \\( L^{-1} \\) has a general form.",
+        "doc2_segment_text": "Lel's assume \\( L^{-1} \\) has a general form.",
+        "similarity_score": 1.0
+    },
+    {
+        "doc1_segment_index": 13,
+        "doc2_segment_index": 24,
+        "doc1_segment_text": "Lel's assume \\( L^{-1} \\) has a general form.",
+        "doc2_segment_text": "For \\( i^{\\text {th }} \\) row of \\( L L^{-1} \\), it is a \\( L C \\) of rows \\( L^{-1} \\), with.",
+        "similarity_score": 0.507239043712616
+    },
+    {
+        "doc1_segment_index": 14,
+        "doc2_segment_index": 3,
+        "doc1_segment_text": "\\[\n\\begin{aligned}\nL^{-1} & =\\left[\\begin{array}{ccccc}\nm_{11} & 0 & 0 & \\cdots & 0 \\\\\nm_{21} & m_{22} & \\cdots & 0 \\\\\n\\vdots & \\vdots & & \\vdots \\\\\nm_{n_{1}} & m_{n_{2}} & \\cdots & \\cdots & n_{n_{n}}\n\\end{array}\\right] \\\\\n\\Rightarrow L \\cdot L^{-1} & =\\left[\\begin{array}{cccc}\nl_{11} & 0 & 0 & 0 \\\\\n\\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & l_{n n}\n\\end{array}\\right]\\left[\\begin{array}{cccc}\nm_{11} & 0 & 0 & 0 \\\\\n\\vdots & & \\vdots \\\\\nm_{n 1} & \\cdots & \\cdots & m_{n_{n}}\n\\end{array}\\right]\n\\end{aligned}\n\\]",
+        "doc2_segment_text": "\\) for \\( \\left.i<j\\right] \\)\n\\[\nA=\\left[\\begin{array}{lll}\n2 & 0 & 0 \\\\\n3 & 4 & 0 \\\\\n1 & 2 & 5\n\\end{array}\\right]\n\\]",
+        "similarity_score": 0.6269959211349487
+    },
+    {
+        "doc1_segment_index": 14,
+        "doc2_segment_index": 5,
+        "doc1_segment_text": "\\[\n\\begin{aligned}\nL^{-1} & =\\left[\\begin{array}{ccccc}\nm_{11} & 0 & 0 & \\cdots & 0 \\\\\nm_{21} & m_{22} & \\cdots & 0 \\\\\n\\vdots & \\vdots & & \\vdots \\\\\nm_{n_{1}} & m_{n_{2}} & \\cdots & \\cdots & n_{n_{n}}\n\\end{array}\\right] \\\\\n\\Rightarrow L \\cdot L^{-1} & =\\left[\\begin{array}{cccc}\nl_{11} & 0 & 0 & 0 \\\\\n\\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & l_{n n}\n\\end{array}\\right]\\left[\\begin{array}{cccc}\nm_{11} & 0 & 0 & 0 \\\\\n\\vdots & & \\vdots \\\\\nm_{n 1} & \\cdots & \\cdots & m_{n_{n}}\n\\end{array}\\right]\n\\end{aligned}\n\\]",
+        "doc2_segment_text": "\\[\n\\text { Let } A^{-1}=\\left[\\begin{array}{lll}\nA & \\\\\nb_{11} & b_{12} & b_{13} \\\\\nb_{21} & b_{22} & b_{23} \\\\\nb_{31} & b_{32} & b_{33}\n\\end{array}\\right]\n\\]",
+        "similarity_score": 0.6835871934890747
+    },
+    {
+        "doc1_segment_index": 14,
+        "doc2_segment_index": 7,
+        "doc1_segment_text": "\\[\n\\begin{aligned}\nL^{-1} & =\\left[\\begin{array}{ccccc}\nm_{11} & 0 & 0 & \\cdots & 0 \\\\\nm_{21} & m_{22} & \\cdots & 0 \\\\\n\\vdots & \\vdots & & \\vdots \\\\\nm_{n_{1}} & m_{n_{2}} & \\cdots & \\cdots & n_{n_{n}}\n\\end{array}\\right] \\\\\n\\Rightarrow L \\cdot L^{-1} & =\\left[\\begin{array}{cccc}\nl_{11} & 0 & 0 & 0 \\\\\n\\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & l_{n n}\n\\end{array}\\right]\\left[\\begin{array}{cccc}\nm_{11} & 0 & 0 & 0 \\\\\n\\vdots & & \\vdots \\\\\nm_{n 1} & \\cdots & \\cdots & m_{n_{n}}\n\\end{array}\\right]\n\\end{aligned}\n\\]",
+        "doc2_segment_text": "\\) delentily watrix \\( \\left.=\\left[\\begin{array}{lll}1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1\\end{array}\\right]\\right) \\)\nFrist row of \\( A A^{-1} \\) :\n\\[\n\\begin{array}{ll}\n(1,1) \\Rightarrow 2 * b_{11}=1, & \\text { so } b_{12}=1 / 2 \\\\\n(1,2) & \\Rightarrow 2 * b_{12}=0, \\\\\n(1,3) & \\Rightarrow 2 * b_{13}=0, \\\\\nb_{12}=0 \\\\\n( & \\text { so } b_{13}=0\n\\end{array}\n\\]",
+        "similarity_score": 0.7478290796279907
+    },
+    {
+        "doc1_segment_index": 14,
+        "doc2_segment_index": 8,
+        "doc1_segment_text": "\\[\n\\begin{aligned}\nL^{-1} & =\\left[\\begin{array}{ccccc}\nm_{11} & 0 & 0 & \\cdots & 0 \\\\\nm_{21} & m_{22} & \\cdots & 0 \\\\\n\\vdots & \\vdots & & \\vdots \\\\\nm_{n_{1}} & m_{n_{2}} & \\cdots & \\cdots & n_{n_{n}}\n\\end{array}\\right] \\\\\n\\Rightarrow L \\cdot L^{-1} & =\\left[\\begin{array}{cccc}\nl_{11} & 0 & 0 & 0 \\\\\n\\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & l_{n n}\n\\end{array}\\right]\\left[\\begin{array}{cccc}\nm_{11} & 0 & 0 & 0 \\\\\n\\vdots & & \\vdots \\\\\nm_{n 1} & \\cdots & \\cdots & m_{n_{n}}\n\\end{array}\\right]\n\\end{aligned}\n\\]",
+        "doc2_segment_text": "Second row of \\( A A^{-1} \\);\n\\[\n\\begin{array}{l}\n(2,1) \\Rightarrow 3 b_{12}+4 * b_{21}=0, \\text { we know } b_{11}=1 / 2 \\text {, so } b_{12}=-3 / 8 \\\\\n(2,2) \\Rightarrow 4 * b_{22}=1, \\\\\n(2,3) \\Rightarrow 4 * b_{23}=0,\n\\end{array}\n\\]\n\\( 3^{\\text {rd }} \\) row of \\( A A^{-1} \\) :\n\\( (3,1) \\Rightarrow 1 * b_{11}+2 * b_{21}+5 * b_{31}=0 \\), substitutry \\( b_{11} \\& b_{21} \\)\n\\[\n\\begin{array}{lll}\n(3,2) \\Rightarrow 2+b_{22}+5 b_{32}=0, & \\text { so } b_{31}=1 / 40 \\\\\n(3,3) \\Rightarrow 5 * b_{33}=1, & \\text { so } b_{33}=1 / 5\n\\end{array}\n\\]",
+        "similarity_score": 0.6472100019454956
+    },
+    {
+        "doc1_segment_index": 14,
+        "doc2_segment_index": 21,
+        "doc1_segment_text": "\\[\n\\begin{aligned}\nL^{-1} & =\\left[\\begin{array}{ccccc}\nm_{11} & 0 & 0 & \\cdots & 0 \\\\\nm_{21} & m_{22} & \\cdots & 0 \\\\\n\\vdots & \\vdots & & \\vdots \\\\\nm_{n_{1}} & m_{n_{2}} & \\cdots & \\cdots & n_{n_{n}}\n\\end{array}\\right] \\\\\n\\Rightarrow L \\cdot L^{-1} & =\\left[\\begin{array}{cccc}\nl_{11} & 0 & 0 & 0 \\\\\n\\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & l_{n n}\n\\end{array}\\right]\\left[\\begin{array}{cccc}\nm_{11} & 0 & 0 & 0 \\\\\n\\vdots & & \\vdots \\\\\nm_{n 1} & \\cdots & \\cdots & m_{n_{n}}\n\\end{array}\\right]\n\\end{aligned}\n\\]",
+        "doc2_segment_text": "\\[\nL=\\left[\\begin{array}{ccccc}\n\\eta_{11} & 0 & 0 & \\cdots & 0 \\\\\n\\eta_{21} & z_{22} & 0 & \\cdots & 0 \\\\\n\\vdots & \\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & & \\eta_{n n}\n\\end{array}\\right]\n\\]",
+        "similarity_score": 0.8163068890571594
+    },
+    {
+        "doc1_segment_index": 14,
+        "doc2_segment_index": 23,
+        "doc1_segment_text": "\\[\n\\begin{aligned}\nL^{-1} & =\\left[\\begin{array}{ccccc}\nm_{11} & 0 & 0 & \\cdots & 0 \\\\\nm_{21} & m_{22} & \\cdots & 0 \\\\\n\\vdots & \\vdots & & \\vdots \\\\\nm_{n_{1}} & m_{n_{2}} & \\cdots & \\cdots & n_{n_{n}}\n\\end{array}\\right] \\\\\n\\Rightarrow L \\cdot L^{-1} & =\\left[\\begin{array}{cccc}\nl_{11} & 0 & 0 & 0 \\\\\n\\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & l_{n n}\n\\end{array}\\right]\\left[\\begin{array}{cccc}\nm_{11} & 0 & 0 & 0 \\\\\n\\vdots & & \\vdots \\\\\nm_{n 1} & \\cdots & \\cdots & m_{n_{n}}\n\\end{array}\\right]\n\\end{aligned}\n\\]",
+        "doc2_segment_text": "\\[\n\\begin{aligned}\nL^{-1} & =\\left[\\begin{array}{ccccc}\nm_{11} & 0 & 0 & \\cdots & 0 \\\\\nm_{21} & m_{22} & \\cdots & 0 \\\\\n\\vdots & \\vdots & & \\vdots \\\\\nm_{n_{1}} & m_{n_{2}} & \\cdots & \\cdots & n_{n_{n}}\n\\end{array}\\right] \\\\\n\\Rightarrow L \\cdot L^{-1} & =\\left[\\begin{array}{cccc}\nl_{11} & 0 & 0 & 0 \\\\\n\\vdots & & & \\\\\nl_{n_{1}} & l_{n_{2}} & \\cdots & l_{n n}\n\\end{array}\\right]\\left[\\begin{array}{cccc}\nm_{11} & 0 & 0 & 0 \\\\\n\\vdots & & \\vdots \\\\\nm_{n 1} & \\cdots & \\cdots & m_{n_{n}}\n\\end{array}\\right]\n\\end{aligned}\n\\]",
+        "similarity_score": 1.0
+    },
+    {
+        "doc1_segment_index": 15,
+        "doc2_segment_index": 4,
+        "doc1_segment_text": "For \\( i^{\\text {th }} \\) row of \\( L L^{-1} \\), it is a \\( L C \\) of rows \\( L^{-1} \\), with.",
+        "doc2_segment_text": "We need to find \\( A^{-1} \\).",
+        "similarity_score": 0.5497991442680359
+    },
+    {
+        "doc1_segment_index": 15,
+        "doc2_segment_index": 6,
+        "doc1_segment_text": "For \\( i^{\\text {th }} \\) row of \\( L L^{-1} \\), it is a \\( L C \\) of rows \\( L^{-1} \\), with.",
+        "doc2_segment_text": "We know that \\( A A^{-I}=I \\quad\\left(\\right.",
+        "similarity_score": 0.5110726356506348
+    },
+    {
+        "doc1_segment_index": 15,
+        "doc2_segment_index": 18,
+        "doc1_segment_text": "For \\( i^{\\text {th }} \\) row of \\( L L^{-1} \\), it is a \\( L C \\) of rows \\( L^{-1} \\), with.",
+        "doc2_segment_text": "We need to show that \\( L^{-1} \\) is also lower \\( \\Delta \\) matrix.",
+        "similarity_score": 0.5933853387832642
+    },
+    {
+        "doc1_segment_index": 15,
+        "doc2_segment_index": 19,
+        "doc1_segment_text": "For \\( i^{\\text {th }} \\) row of \\( L L^{-1} \\), it is a \\( L C \\) of rows \\( L^{-1} \\), with.",
+        "doc2_segment_text": "\\( L \\cdot L^{-1}=I \\quad \\in I \\) is Identity matrix of ordos \\( n \\).",
+        "similarity_score": 0.5985156893730164
+    },
+    {
+        "doc1_segment_index": 15,
+        "doc2_segment_index": 22,
+        "doc1_segment_text": "For \\( i^{\\text {th }} \\) row of \\( L L^{-1} \\), it is a \\( L C \\) of rows \\( L^{-1} \\), with.",
+        "doc2_segment_text": "Lel's assume \\( L^{-1} \\) has a general form.",
+        "similarity_score": 0.507239043712616
+    },
+    {
+        "doc1_segment_index": 15,
+        "doc2_segment_index": 24,
+        "doc1_segment_text": "For \\( i^{\\text {th }} \\) row of \\( L L^{-1} \\), it is a \\( L C \\) of rows \\( L^{-1} \\), with.",
+        "doc2_segment_text": "For \\( i^{\\text {th }} \\) row of \\( L L^{-1} \\), it is a \\( L C \\) of rows \\( L^{-1} \\), with.",
+        "similarity_score": 0.9999999403953552
+    },
+    {
+        "doc1_segment_index": 16,
+        "doc2_segment_index": 25,
+        "doc1_segment_text": "coeffecients coming from L.",
+        "doc2_segment_text": "coeffecients coming from L.",
+        "similarity_score": 1.0
+    }
+]

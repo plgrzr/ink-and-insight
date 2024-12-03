@@ -85,8 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
             updateVariations('variations-doc2', data.variations.document2);
 
             // Update semantic consistency
-            updateSemanticConsistency('semantics-doc1', data.text_consistency.doc1);
-            updateSemanticConsistency('semantics-doc2', data.text_consistency.doc2);
+            updateSemanticConsistency('semantics-doc1', data.text_consistency.doc1_internal);
+            updateSemanticConsistency('semantics-doc2', data.text_consistency.doc2_internal);
 
             // Update report link
             if (data.report_url) {
