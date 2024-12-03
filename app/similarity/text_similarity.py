@@ -118,6 +118,27 @@ class SemanticAnalyzer:
             similarities.append(max(sims))  # Take best match
 
         return np.mean(similarities)
+    
+    def analyze_cross_document_consistency(self, segments1, segments2, embeddings1, embeddings2, threshold=0.8):
+        """Analyze semantic consistency between segments of two documents"""
+        cross_inconsistencies = []
+        
+        for i, (seg1, emb1) in enumerate(zip(segments1, embeddings1)):
+            for j, (seg2, emb2) in enumerate(zip(segments2, embeddings2)):
+                similarity = np.dot(emb1, emb2) / (
+                    np.linalg.norm(emb1) * np.linalg.norm(emb2)
+                )
+                
+                if similarity > threshold:
+                    cross_inconsistencies.append({
+                        "doc1_segment_index": i,
+                        "doc2_segment_index": j,
+                        "doc1_segment_text": seg1,
+                        "doc2_segment_text": seg2,
+                        "similarity_score": float(similarity)
+                    })
+                    
+        return cross_inconsistencies
 
     def analyze_semantic_consistency(self, text1, text2):
         """Analyze semantic consistency between two texts"""
@@ -162,17 +183,42 @@ class SemanticAnalyzer:
 
         return inconsistencies
 
+    def analyze_documents(self, text1, text2, threshold=0.5):
+        """Complete analysis of two documents"""
+        # Use existing preprocessing
+        segments1 = self.preprocess_text(text1)
+        segments2 = self.preprocess_text(text2)
 
-def compute_text_similarity(text1, text2):
-    """
-    Compute semantic similarity between two texts and analyze consistency
-    """
+        embeddings1 = self.get_embeddings(segments1)
+        embeddings2 = self.get_embeddings(segments2)
+
+        # Get similarity score using existing method
+        similarity = self.compute_semantic_similarity(embeddings1, embeddings2)
+        
+        # Enhanced analysis including cross-document
+        analysis = {
+            "similarity_score": float(similarity),
+            "consistency_analysis": {
+                "doc1_internal": self.analyze_internal_consistency(segments1, embeddings1),
+                "doc2_internal": self.analyze_internal_consistency(segments2, embeddings2),
+                "cross_document": self.analyze_cross_document_consistency(
+                    segments1, segments2, embeddings1, embeddings2, threshold
+                )
+            }
+        }
+        
+        return analysis
+
+def compute_text_similarity(text1, text2, threshold=0.5, detailed=True):
+    """Enhanced text similarity computation with optional detailed analysis"""
     analyzer = SemanticAnalyzer()
-    similarity, consistency_analysis = analyzer.analyze_semantic_consistency(
-        text1, text2
-    )
-
-    return {
-        "similarity_score": float(similarity),
-        "consistency_analysis": consistency_analysis,
-    }
+    
+    if detailed:
+        return analyzer.analyze_documents(text1, text2, threshold)
+    else:
+        # Original behavior
+        similarity, consistency = analyzer.analyze_semantic_consistency(text1, text2)
+        return {
+            "similarity_score": similarity,
+            "consistency_analysis": consistency
+        }
