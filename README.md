@@ -6,7 +6,7 @@ A Flask web application that analyzes and compares PDF documents using Google Cl
 
 - PDF document comparison and analysis
 - Text and handwriting similarity detection
-- Semantic flow analysis using BERT embeddings
+- Semantic flow analysis using NLTK and BERT embeddings
 - Writing style consistency checking
 - Detailed PDF report generation
 - Interactive web interface
