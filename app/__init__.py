@@ -34,6 +34,10 @@ def create_app():
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     os.makedirs('reports', exist_ok=True)
 
+    # Add upload folder configuration
+    app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'uploads')
+    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
     # Register blueprint
     from app.routes import main
     app.register_blueprint(main)

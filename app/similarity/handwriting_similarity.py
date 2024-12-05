@@ -21,17 +21,56 @@ def get_cache_key(file_path: str) -> str:
 
 
 def load_from_cache(cache_key: str):
-    cache_file = os.path.join(CACHE_DIR, f"{cache_key}.json")
-    if os.path.exists(cache_file):
-        with open(cache_file, "r") as file:
-            return json.load(file)
-    return None
+    try:
+        cache_file = os.path.join(CACHE_DIR, f"{cache_key}.json")
+        if os.path.exists(cache_file):
+            with open(cache_file, "r", encoding='utf-8') as file:
+                content = file.read()
+                try:
+                    return json.loads(content)
+                except json.JSONDecodeError as e:
+                    print(f"JSON decode error at position {e.pos}: {e.msg}")
+                    print(f"Problematic content around position {e.pos}: {content[max(0, e.pos-50):min(len(content), e.pos+50)]}")
+                    return None
+        return None
+    except Exception as e:
+        print(f"Error loading from cache: {str(e)}")
+        return None
+
+
+def convert_to_native(obj):
+    """Convert numpy types to native Python types for JSON serialization"""
+    if isinstance(obj, (np.int8, np.int16, np.int32, np.int64,
+                       np.uint8, np.uint16, np.uint32, np.uint64)):
+        return int(obj)
+    elif isinstance(obj, (np.float16, np.float32, np.float64)):
+        return float(obj)
+    elif isinstance(obj, (np.ndarray,)):
+        return obj.tolist()
+    elif isinstance(obj, dict):
+        return {key: convert_to_native(value) for key, value in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_to_native(item) for item in obj]
+    return obj
 
 
 def save_to_cache(cache_key: str, data) -> None:
-    cache_file = os.path.join(CACHE_DIR, f"{cache_key}.json")
-    with open(cache_file, "w") as file:
-        json.dump(data, file)
+    try:
+        cache_file = os.path.join(CACHE_DIR, f"{cache_key}.json")
+        # Convert all numpy types to native Python types before serialization
+        serializable_data = convert_to_native(data)
+        
+        # Pretty print JSON for debugging
+        json_str = json.dumps(serializable_data, indent=2)
+        print(f"Attempting to save cache data (first 100 chars): {json_str[:100]}...")
+        
+        with open(cache_file, "w", encoding='utf-8') as file:
+            file.write(json_str)
+            
+    except Exception as e:
+        print(f"Error saving to cache: {str(e)}")
+        # Continue execution even if caching fails
+        pass
 
 
 def process_image(args: Tuple) -> List[Dict]:
@@ -69,39 +108,51 @@ def process_image(args: Tuple) -> List[Dict]:
                         for paragraph in block.get("paragraphs", []):
                             words = paragraph.get("words", [])
                             if words:
-                                page_features.append(
-                                    {
-                                        "confidence": paragraph.get("confidence", 0),
-                                        "word_count": len(words),
-                                        "symbol_density": sum(
-                                            1
-                                            for word in words
-                                            for symbol in word.get("symbols", [])
-                                            if not symbol.get("text", "").isalnum()
-                                        )
-                                        / len(words)
-                                        if words
-                                        else 0,
-                                        "line_breaks": sum(
-                                            1
-                                            for word in words
-                                            for symbol in word.get("symbols", [])
-                                            if symbol.get("property", {})
-                                            .get("detectedBreak", {})
-                                            .get("type")
-                                        ),
-                                        "average_symbol_confidence": sum(
-                                            symbol.get("confidence", 0)
-                                            for word in words
-                                            for symbol in word.get("symbols", [])
-                                        )
-                                        / sum(
-                                            1
-                                            for word in words
-                                            for _ in word.get("symbols", [])
-                                        ),
+                                # Get bounding box for the paragraph
+                                vertices = paragraph.get("boundingBox", {}).get("vertices", [])
+                                if vertices and len(vertices) == 4:
+                                    boundingBox = {
+                                        'left': min(v.get('x', 0) for v in vertices),
+                                        'top': min(v.get('y', 0) for v in vertices),
+                                        'width': max(v.get('x', 0) for v in vertices) - min(v.get('x', 0) for v in vertices),
+                                        'height': max(v.get('y', 0) for v in vertices) - min(v.get('y', 0) for v in vertices)
                                     }
-                                )
+                                else:
+                                    boundingBox = None
+
+                                page_features.append({
+                                    "confidence": paragraph.get("confidence", 0),
+                                    "word_count": len(words),
+                                    "symbol_density": sum(
+                                        1
+                                        for word in words
+                                        for symbol in word.get("symbols", [])
+                                        if not symbol.get("text", "").isalnum()
+                                    )
+                                    / len(words)
+                                    if words
+                                    else 0,
+                                    "line_breaks": sum(
+                                        1
+                                        for word in words
+                                        for symbol in word.get("symbols", [])
+                                        if symbol.get("property", {})
+                                        .get("detectedBreak", {})
+                                        .get("type")
+                                    ),
+                                    "average_symbol_confidence": sum(
+                                        symbol.get("confidence", 0)
+                                        for word in words
+                                        for symbol in word.get("symbols", [])
+                                    )
+                                    / sum(
+                                        1
+                                        for word in words
+                                        for _ in word.get("symbols", [])
+                                    ),
+                                    "boundingBox": boundingBox,
+                                    "page_number": page_num
+                                })
 
         return page_features
 
@@ -128,27 +179,69 @@ def compute_handwriting_similarity(pdf_path1: str, pdf_path2: str) -> Tuple:
         cache_key = hashlib.md5(
             (get_cache_key(pdf_path1) + get_cache_key(pdf_path2)).encode()
         ).hexdigest()
+        
         if cached := load_from_cache(cache_key):
-            return cached
-
+            try:
+                return (
+                    float(cached["similarity"]),
+                    convert_to_native(cached["feature_scores"]),
+                    convert_to_native(cached["anomalies1"]),
+                    convert_to_native(cached["anomalies2"]),
+                    convert_to_native(cached["variations1"]),
+                    convert_to_native(cached["variations2"]),
+                    images1,
+                    images2,
+                    convert_to_native(cached["features1"]),
+                    convert_to_native(cached["features2"])
+                )
+            except Exception as e:
+                print(f"Error processing cached data: {str(e)}")
+                # Continue with fresh computation if cache processing fails
+        
         features1 = extract_handwriting_features(images1, api_key)
         features2 = extract_handwriting_features(images2, api_key)
+
+        # Ensure features are not empty
+        if not features1 or not features2:
+            raise Exception("Failed to extract features from one or both documents")
 
         anomalies1, variations1 = detect_internal_anomalies(features1)
         anomalies2, variations2 = detect_internal_anomalies(features2)
 
         similarity, feature_scores = compare_handwriting_features(features1, features2)
-        response = (
+        
+        # Prepare cache data with native Python types
+        cache_data = {
+            "similarity": float(np.clip(similarity, 0, 1)),
+            "feature_scores": convert_to_native(feature_scores),
+            "anomalies1": convert_to_native(anomalies1),
+            "anomalies2": convert_to_native(anomalies2),
+            "variations1": convert_to_native(variations1),
+            "variations2": convert_to_native(variations2),
+            "features1": convert_to_native(features1),
+            "features2": convert_to_native(features2)
+        }
+        
+        # Verify JSON serialization before saving
+        try:
+            json.dumps(cache_data)  # Test serialization
+            save_to_cache(cache_key, cache_data)
+        except Exception as e:
+            print(f"Cache serialization test failed: {str(e)}")
+            # Continue execution even if caching fails
+
+        return (
             float(np.clip(similarity, 0, 1)),
             feature_scores,
             anomalies1,
             anomalies2,
             variations1,
             variations2,
+            images1,
+            images2,
+            features1,
+            features2
         )
-
-        save_to_cache(cache_key, response)
-        return response
 
     except Exception as e:
         print(f"Handwriting similarity error: {str(e)}")

@@ -1,9 +1,31 @@
 from fpdf import FPDF
 import os
 from datetime import datetime
+from PIL import Image, ImageDraw
+import numpy as np
+
+def draw_highlights_on_image(image, features, color=(255, 255, 0, 128)):
+    """Draw semi-transparent highlights on detected regions"""
+    # Convert to RGBA if not already
+    image = image.convert('RGBA')
+    # Create a transparent overlay
+    overlay = Image.new('RGBA', image.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+    
+    for feature in features:
+        if 'boundingBox' in feature:
+            box = feature['boundingBox']
+            draw.rectangle(
+                [box['left'], box['top'], box['left'] + box['width'], box['top'] + box['height']],
+                fill=color
+            )
+    
+    # Combine the original image with the overlay
+    return Image.alpha_composite(image, overlay)
 
 def generate_report(text_similarity, handwriting_similarity, similarity_index, text1, text2, 
-                   feature_scores=None, anomalies1=None, anomalies2=None, variations1=None, variations2=None):
+                   feature_scores=None, anomalies1=None, anomalies2=None, variations1=None, variations2=None,
+                   images1=None, images2=None, features1=None, features2=None):
     """
     Generate a PDF report with similarity analysis results
     """
@@ -111,6 +133,43 @@ def generate_report(text_similarity, handwriting_similarity, similarity_index, t
             write_variations(variations1, 1)
             write_variations(variations2, 2)
         
+        # Add highlighted page images if available
+        if images1 and features1:
+            pdf.add_page()
+            pdf.set_font('Arial', 'B', 14)
+            pdf.cell(effective_width, 10, 'Document 1 - Detected Regions:', 0, 1)
+            pdf.ln(5)
+
+            for i, (image, page_features) in enumerate(zip(images1, features1)):
+                # Draw highlights on the image
+                highlighted_image = draw_highlights_on_image(image, page_features)
+                
+                # Save temporary image
+                temp_image_path = f'temp_highlighted_{i}.png'
+                highlighted_image.save(temp_image_path)
+                
+                # Add to PDF
+                pdf.image(temp_image_path, x=15, w=180)
+                pdf.ln(5)
+                
+                # Clean up temporary file
+                os.remove(temp_image_path)
+
+        # Repeat for second document
+        if images2 and features2:
+            pdf.add_page()
+            pdf.set_font('Arial', 'B', 14)
+            pdf.cell(effective_width, 10, 'Document 2 - Detected Regions:', 0, 1)
+            pdf.ln(5)
+
+            for i, (image, page_features) in enumerate(zip(images2, features2)):
+                highlighted_image = draw_highlights_on_image(image, page_features)
+                temp_image_path = f'temp_highlighted_{i}.png'
+                highlighted_image.save(temp_image_path)
+                pdf.image(temp_image_path, x=15, w=180)
+                pdf.ln(5)
+                os.remove(temp_image_path)
+
         # Add extracted text samples
         pdf.add_page()
         pdf.set_font('Arial', 'B', 14)

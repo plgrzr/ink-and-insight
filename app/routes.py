@@ -30,6 +30,8 @@ def index():
 
 @main.route("/compare", methods=["POST"])
 def compare_pdfs():
+    print("API Key present:", bool(os.environ.get("GOOGLE_CLOUD_API_KEY")))
+    
     if "file1" not in request.files or "file2" not in request.files:
         return jsonify({"error": "Two PDF files are required"}), 400
 
@@ -84,6 +86,10 @@ def compare_pdfs():
             anomalies2,
             variations1,
             variations2,
+            images1,
+            images2,
+            features1,
+            features2
         ) = compute_handwriting_similarity(filepath1, filepath2)
 
         weight_text = float(request.form.get("weight_text", 0.5))
@@ -104,6 +110,10 @@ def compare_pdfs():
             anomalies2,
             variations1,
             variations2,
+            images1,
+            images2,
+            features1,
+            features2
         )
         print("Request Completed")
         return jsonify(

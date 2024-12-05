@@ -30,15 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle file input changes
-    for (const input of document.querySelectorAll('.file-input')) {
+    document.querySelectorAll('input[type="file"]').forEach(input => {
         input.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
-                const box = e.target.previousElementSibling;
+                const box = e.target.parentElement.querySelector('.upload-box');
                 box.querySelector('.upload-text').textContent = file.name;
             }
         });
-    };
+    });
 
     // Handle form submission
     form.addEventListener('submit', async (e) => {
