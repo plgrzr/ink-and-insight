@@ -89,7 +89,9 @@ def compare_pdfs():
             images1,
             images2,
             features1,
-            features2
+            features2,
+            text_similarities,
+            handwriting_similarities
         ) = compute_handwriting_similarity(filepath1, filepath2)
 
         weight_text = float(request.form.get("weight_text", 0.5))
@@ -113,7 +115,9 @@ def compare_pdfs():
             images1,
             images2,
             features1,
-            features2
+            features2,
+            text_similarities,
+            handwriting_similarities
         )
         print("Request Completed")
         return jsonify(

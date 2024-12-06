@@ -8,6 +8,7 @@ import base64
 import hashlib
 import json
 from typing import List, Dict, Tuple
+from app.similarity.text_similarity import compute_text_similarity
 
 CACHE_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "cached_data"
@@ -180,6 +181,10 @@ def compute_handwriting_similarity(pdf_path1: str, pdf_path2: str) -> Tuple:
             (get_cache_key(pdf_path1) + get_cache_key(pdf_path2)).encode()
         ).hexdigest()
         
+        # Initialize empty lists for similarities
+        text_similarities = []
+        handwriting_similarities = []
+        
         if cached := load_from_cache(cache_key):
             try:
                 return (
@@ -192,12 +197,14 @@ def compute_handwriting_similarity(pdf_path1: str, pdf_path2: str) -> Tuple:
                     images1,
                     images2,
                     convert_to_native(cached["features1"]),
-                    convert_to_native(cached["features2"])
+                    convert_to_native(cached["features2"]),
+                    convert_to_native(cached.get("text_similarities", [])),
+                    convert_to_native(cached.get("handwriting_similarities", []))
                 )
             except Exception as e:
                 print(f"Error processing cached data: {str(e)}")
                 # Continue with fresh computation if cache processing fails
-        
+
         features1 = extract_handwriting_features(images1, api_key)
         features2 = extract_handwriting_features(images2, api_key)
 
@@ -205,12 +212,40 @@ def compute_handwriting_similarity(pdf_path1: str, pdf_path2: str) -> Tuple:
         if not features1 or not features2:
             raise Exception("Failed to extract features from one or both documents")
 
+        # Process similarities for each page
+        for page_idx, (page1_features, page2_features) in enumerate(zip(features1, features2)):
+            page_text_sims = []
+            page_hw_sims = []
+            
+            for feat1 in page1_features:
+                for feat2 in page2_features:
+                    if 'boundingBox' in feat1 and 'boundingBox' in feat2:
+                        # Compare text content similarity if text is available
+                        if 'text' in feat1 and 'text' in feat2:
+                            text_sim = compute_text_similarity(feat1['text'], feat2['text'])
+                            if text_sim >= 0.90:  # 90% threshold
+                                page_text_sims.append({
+                                    'score': text_sim,
+                                    'boundingBox': feat1['boundingBox']
+                                })
+                        
+                        # Compare handwriting features similarity
+                        hw_sim = compute_handwriting_region_similarity(feat1, feat2)
+                        if hw_sim >= 0.80:  # 80% threshold
+                            page_hw_sims.append({
+                                'score': hw_sim,
+                                'boundingBox': feat1['boundingBox']
+                            })
+            
+            text_similarities.append(page_text_sims)
+            handwriting_similarities.append(page_hw_sims)
+
         anomalies1, variations1 = detect_internal_anomalies(features1)
         anomalies2, variations2 = detect_internal_anomalies(features2)
 
         similarity, feature_scores = compare_handwriting_features(features1, features2)
         
-        # Prepare cache data with native Python types
+        # Prepare cache data
         cache_data = {
             "similarity": float(np.clip(similarity, 0, 1)),
             "feature_scores": convert_to_native(feature_scores),
@@ -219,16 +254,16 @@ def compute_handwriting_similarity(pdf_path1: str, pdf_path2: str) -> Tuple:
             "variations1": convert_to_native(variations1),
             "variations2": convert_to_native(variations2),
             "features1": convert_to_native(features1),
-            "features2": convert_to_native(features2)
+            "features2": convert_to_native(features2),
+            "text_similarities": convert_to_native(text_similarities),
+            "handwriting_similarities": convert_to_native(handwriting_similarities)
         }
-        
-        # Verify JSON serialization before saving
+
         try:
             json.dumps(cache_data)  # Test serialization
             save_to_cache(cache_key, cache_data)
         except Exception as e:
             print(f"Cache serialization test failed: {str(e)}")
-            # Continue execution even if caching fails
 
         return (
             float(np.clip(similarity, 0, 1)),
@@ -240,7 +275,9 @@ def compute_handwriting_similarity(pdf_path1: str, pdf_path2: str) -> Tuple:
             images1,
             images2,
             features1,
-            features2
+            features2,
+            text_similarities,
+            handwriting_similarities
         )
 
     except Exception as e:
@@ -424,3 +461,23 @@ def analyze_page_variations(page_characteristics: List[Dict]) -> List[Dict]:
             variations.append(variation)
 
     return variations
+
+def compute_text_region_similarity(region1: Dict, region2: Dict) -> float:
+    """Compute text similarity between two regions"""
+    # Extract text content from regions and compare
+    text1 = region1.get('text', '')
+    text2 = region2.get('text', '')
+    return compute_text_similarity(text1, text2)
+
+def compute_handwriting_region_similarity(region1: Dict, region2: Dict) -> float:
+    """Compute handwriting similarity between two regions"""
+    # Compare confidence, symbol density, and other handwriting features
+    features_to_compare = ['confidence', 'symbol_density', 'line_breaks']
+    similarities = []
+    
+    for feature in features_to_compare:
+        if feature in region1 and feature in region2:
+            sim = 1 - abs(region1[feature] - region2[feature])
+            similarities.append(sim)
+    
+    return np.mean(similarities) if similarities else 0.0
