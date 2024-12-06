@@ -17,13 +17,12 @@ def draw_highlights_on_image(image, features, text_similarities=None, handwritin
     
     # Different colors for different types of highlights
     detection_color = (255, 255, 0, 128)    # Yellow for detected regions
-    text_sim_color = (0, 255, 0, 128)       # Green for text similarity
-    hw_sim_color = (0, 0, 255, 128)         # Blue for handwriting similarity
-    combined_sim_color = (128, 0, 128, 128) # Purple for combined similarity
+    text_sim_color = (255, 0, 0, 255)       # Red for text similarity
+    hw_sim_color = (0, 0, 255, 255)         # Blue for handwriting similarity
     
-    # Create a font for text
+    # Create a larger font for text
     try:
-        font = ImageFont.truetype("arial.ttf", 16)
+        font = ImageFont.truetype("arial.ttf", 36)  # Increased from 24 to 36
     except:
         font = ImageFont.load_default()
     
@@ -64,30 +63,50 @@ def draw_highlights_on_image(image, features, text_similarities=None, handwritin
         has_text_sim = 'text_sim' in box_data
         has_hw_sim = 'hw_sim' in box_data
         
-        # Determine color based on which similarities are present
-        if has_text_sim and has_hw_sim:
-            fill_color = combined_sim_color
-        elif has_text_sim:
-            fill_color = text_sim_color
-        else:
-            fill_color = hw_sim_color
-        
-        # Draw the rectangle
-        draw.rectangle(
-            [box['left'], box['top'], box['left'] + box['width'], box['top'] + box['height']],
-            fill=fill_color
-        )
-        
-        # Add similarity labels
-        y_offset = box['top'] - 20
+        # Draw rectangles for each type of similarity
         if has_text_sim:
-            text_label = f"Text: {box_data['text_sim']*100:.0f}%"
-            draw.text((box['left'], y_offset), text_label, font=font, fill=(0, 0, 0, 255))
-            y_offset -= 20
+            # Draw red rectangle for text similarity
+            draw.rectangle(
+                [box['left'], box['top'], box['left'] + box['width'], box['top'] + box['height']],
+                outline=text_sim_color,
+                width=4
+            )
         
         if has_hw_sim:
-            hw_label = f"HW: {box_data['hw_sim']*100:.0f}%"
-            draw.text((box['left'], y_offset), hw_label, font=font, fill=(0, 0, 0, 255))
+            # Draw blue rectangle slightly offset for handwriting similarity
+            offset = 4 if has_text_sim else 0
+            draw.rectangle(
+                [box['left'] + offset, box['top'] + offset, 
+                 box['left'] + box['width'] + offset, box['top'] + box['height'] + offset],
+                outline=hw_sim_color,
+                width=4
+            )
+        
+        # Add similarity labels with increased spacing
+        y_offset = box['top'] - 45  # Increased from 30 to 45 to accommodate larger text
+        label_parts = []
+        
+        if has_text_sim:
+            label_parts.append(f"Text: {box_data['text_sim']*100:.0f}%")
+        
+        if has_hw_sim:
+            label_parts.append(f"HW: {box_data['hw_sim']*100:.0f}%")
+        
+        # Draw combined label
+        if label_parts:
+            label = " | ".join(label_parts)
+            # Add white background to text for better readability
+            text_bbox = draw.textbbox((box['left'], y_offset), label, font=font)
+            # Add more padding around text
+            padding = 8  # Increased from 4 to 8
+            padded_bbox = (
+                text_bbox[0] - padding,
+                text_bbox[1] - padding,
+                text_bbox[2] + padding,
+                text_bbox[3] + padding
+            )
+            draw.rectangle(padded_bbox, fill=(255, 255, 255, 240))  # Increased opacity from 230 to 240
+            draw.text((box['left'], y_offset), label, font=font, fill=(0, 0, 0, 255))
     
     # Combine the original image with the overlay
     return Image.alpha_composite(image, overlay)
