@@ -18,25 +18,13 @@ def create_app():
         response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
         return response
 
-    # Print environment variables for debugging
-    print("\nEnvironment variables:")
-    print(f"MATHPIX_APP_ID: {app.config.get('MATHPIX_APP_ID', 'Not set')}")
-    
-    mathpix_key = app.config.get('MATHPIX_APP_KEY', '')
-    print(f"MATHPIX_APP_KEY: {mathpix_key[:10] + '...' if mathpix_key else 'Not set'}")
-    
-    google_key = app.config.get('GOOGLE_CLOUD_API_KEY', '')
-    print(f"GOOGLE_CLOUD_API_KEY: {google_key[:10] + '...' if google_key else 'Not set'}")
-    print(f"Full Google Cloud API Key length: {len(google_key) if google_key else 0}")
-    print(f"Environment variable directly: {os.getenv('GOOGLE_CLOUD_API_KEY')}")
-
-    # Ensure upload and reports directories exist
-    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    os.makedirs('reports', exist_ok=True)
-
-    # Add upload folder configuration
-    app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'uploads')
-    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+    # Ensure required directories exist with proper permissions
+    for directory in ['uploads', 'reports']:
+        dir_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), directory)
+        os.makedirs(dir_path, exist_ok=True)
+        # Ensure directory is writable
+        os.chmod(dir_path, 0o755)
+        app.config[f'{directory.upper()}_FOLDER'] = dir_path
 
     # Register blueprint
     from app.routes import main

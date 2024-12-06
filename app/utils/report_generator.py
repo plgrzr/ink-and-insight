@@ -3,6 +3,9 @@ import os
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
+import subprocess
+import tempfile
+from pathlib import Path
 
 def draw_highlights_on_image(image, features, text_similarities=None, handwriting_similarities=None):
     """Draw highlights on detected regions with similarity indicators"""
@@ -89,6 +92,113 @@ def draw_highlights_on_image(image, features, text_similarities=None, handwritin
     # Combine the original image with the overlay
     return Image.alpha_composite(image, overlay)
 
+def format_mathematical_text(text):
+    """Format text with ASCII-safe alternatives for mathematical symbols"""
+    # Basic formatting for mathematical expressions
+    text = text.replace('\\(', '(')
+    text = text.replace('\\)', ')')
+    text = text.replace('\\textbackslash', '\\')
+    text = text.replace('\\newline', '\n')
+    
+    # Replace LaTeX symbols with ASCII alternatives
+    replacements = {
+        '\\rightarrow': '->',
+        '\\leftarrow': '<-',
+        '\\leq': '<=',
+        '\\geq': '>=',
+        '\\neq': '!=',
+        '\\approx': '~',
+        '\\cdot': '*',
+        '\\alpha': 'alpha',
+        '\\beta': 'beta',
+        '\\gamma': 'gamma',
+        '\\delta': 'delta',
+        '\\epsilon': 'epsilon',
+        '\\theta': 'theta',
+        '\\lambda': 'lambda',
+        '\\mu': 'mu',
+        '\\pi': 'pi',
+        '\\sigma': 'sigma',
+        '\\tau': 'tau',
+        '\\phi': 'phi',
+        '\\omega': 'omega'
+    }
+    
+    for latex, ascii_rep in replacements.items():
+        text = text.replace(latex, ascii_rep)
+    
+    # Handle subscripts and superscripts with ASCII
+    import re
+    text = re.sub(r'_\{([^}]*)\}', r'_\1', text)  # subscripts
+    text = re.sub(r'\^\{([^}]*)\}', r'^\1', text)  # superscripts
+    
+    return text
+
+def write_text_sample(text, doc_num, pdf):
+    """Write text sample with basic formatting"""
+    pdf.set_font('Arial', 'B', 12)
+    pdf.cell(pdf.w - pdf.l_margin - pdf.r_margin, 8, f'Document {doc_num}:', 0, 1)
+    pdf.ln(2)
+    
+    # Format the text
+    formatted_text = format_mathematical_text(text[:1000])
+    if len(text) > 1000:
+        formatted_text += '...'
+    
+    # Split into paragraphs
+    paragraphs = formatted_text.split('\n\n')
+    
+    # Write paragraphs with proper formatting
+    pdf.set_font('Arial', '', 10)
+    for paragraph in paragraphs:
+        if paragraph.strip():
+            pdf.multi_cell(pdf.w - pdf.l_margin - pdf.r_margin, 5, paragraph.strip())
+            pdf.ln(3)
+    
+    pdf.ln(5)
+
+def write_document_analysis(pdf, images, features, doc_num, text_similarities=None, handwriting_similarities=None):
+    """Write document analysis with images and detected regions on the same page"""
+    temp_files = []
+    try:
+        for i, (image, page_features) in enumerate(zip(images, features)):
+            pdf.add_page()
+            pdf.set_font('Arial', 'B', 14)
+            pdf.cell(pdf.w - pdf.l_margin - pdf.r_margin, 10, f'Document {doc_num} - Page {i+1} Analysis:', 0, 1)
+            pdf.ln(5)
+            
+            # Get similarities for this page
+            page_text_sims = text_similarities[i] if text_similarities else None
+            page_hw_sims = handwriting_similarities[i] if handwriting_similarities else None
+            
+            # Draw highlights on the image
+            highlighted_image = draw_highlights_on_image(
+                image,
+                page_features,
+                page_text_sims,
+                page_hw_sims
+            )
+            
+            # Save and add the image
+            temp_image_path = os.path.join(tempfile.gettempdir(), f'temp_highlighted_{i}.png')
+            temp_files.append(temp_image_path)
+            highlighted_image.save(temp_image_path)
+            
+            # Calculate image dimensions to fit on page
+            img_width = pdf.w - pdf.l_margin - pdf.r_margin
+            img_height = img_width * (highlighted_image.height / highlighted_image.width)
+            
+            # Add image
+            pdf.image(temp_image_path, x=pdf.l_margin, w=img_width)
+    finally:
+        # Clean up temp files
+        for temp_file in temp_files:
+            try:
+                if os.path.exists(temp_file):
+                    os.remove(temp_file)
+            except Exception as e:
+                print(f"Warning: Could not remove temporary file {temp_file}: {str(e)}")
+
 def generate_report(text_similarity, handwriting_similarity, similarity_index, text1, text2, 
                    feature_scores=None, anomalies1=None, anomalies2=None, variations1=None, variations2=None,
                    images1=None, images2=None, features1=None, features2=None,
@@ -97,12 +207,13 @@ def generate_report(text_similarity, handwriting_similarity, similarity_index, t
     Generate a PDF report with similarity analysis results
     """
     try:
+        # Create PDF with proper encoding
         pdf = FPDF()
-        # Set page margins (left, top, right) in mm
-        pdf.set_margins(15, 15, 15)
+        pdf.set_auto_page_break(auto=True, margin=15)
         pdf.add_page()
         
-        # Get effective page width (accounting for margins)
+        # Set margins
+        pdf.set_margins(15, 15, 15)
         effective_width = pdf.w - pdf.l_margin - pdf.r_margin
         
         # Add header
@@ -124,6 +235,39 @@ def generate_report(text_similarity, handwriting_similarity, similarity_index, t
         pdf.cell(effective_width, 10, f'Text Similarity: {text_similarity:.2%}', 0, 1)
         pdf.cell(effective_width, 10, f'Handwriting Similarity: {handwriting_similarity:.2%}', 0, 1)
         pdf.cell(effective_width, 10, f'Overall Similarity Index: {similarity_index:.2%}', 0, 1)
+        pdf.ln(5)
+        
+        # Add explanation of similarity scores
+        pdf.set_font('Arial', 'B', 12)
+        pdf.cell(effective_width, 10, 'Understanding the Scores:', 0, 1)
+        pdf.ln(3)
+        
+        pdf.set_font('Arial', '', 10)
+        explanations = [
+            "Text Similarity: Measures how closely the actual content matches between documents. This includes:",
+            "* Word choice and phrasing",
+            "* Sentence structure",
+            "* Mathematical notation and symbols",
+            "* Overall text organization",
+            "",
+            "Handwriting Similarity: Analyzes writing style characteristics including:",
+            "* Character formation and consistency",
+            "* Spacing between words and lines",
+            "* Writing pressure and stroke patterns",
+            "* Overall writing style consistency",
+            "",
+            "Overall Similarity Index: A weighted combination that considers both text and handwriting patterns.",
+            "",
+            "Score Interpretation:",
+            "* 90-100%: Nearly identical",
+            "* 70-89%: Very similar, likely related",
+            "* 50-69%: Moderately similar, may share common elements",
+            "* 30-49%: Some similarities, but largely different",
+            "* 0-29%: Minimal similarity"
+        ]
+        
+        for explanation in explanations:
+            pdf.multi_cell(effective_width, 5, explanation)
         pdf.ln(10)
         
         # Add handwriting feature scores
@@ -132,11 +276,28 @@ def generate_report(text_similarity, handwriting_similarity, similarity_index, t
             pdf.cell(effective_width, 10, 'Handwriting Feature Scores:', 0, 1)
             pdf.ln(5)
             
+            # Add explanation of feature scores
+            pdf.set_font('Arial', '', 10)
+            pdf.multi_cell(effective_width, 5, "Feature scores measure specific aspects of handwriting similarity:")
+            pdf.ln(3)
+            
+            feature_explanations = {
+                'confidence': "Measures the consistency and clarity of handwriting strokes between documents",
+                'symbol_density': "Compares the spacing and distribution of characters and symbols",
+                'line_break': "Analyzes the pattern and consistency of line breaks and paragraph formatting",
+                'average_confidence': "Overall measure of handwriting consistency across all features"
+            }
+            
+            # Write scores with explanations
             pdf.set_font('Arial', '', 12)
             for key, value in feature_scores.items():
-                # Format key for better readability
                 formatted_key = key.replace('_', ' ').title()
                 pdf.multi_cell(effective_width, 8, f'{formatted_key}: {value:.2%}', 0)
+                # Add explanation in smaller font
+                pdf.set_font('Arial', 'I', 10)  # Italic for explanation
+                pdf.multi_cell(effective_width, 5, f"({feature_explanations.get(key.lower(), '')})")
+                pdf.set_font('Arial', '', 12)  # Reset font
+                pdf.ln(3)
             pdf.ln(10)
         
         # Add anomaly analysis section
@@ -202,49 +363,11 @@ def generate_report(text_similarity, handwriting_similarity, similarity_index, t
         
         # Add highlighted page images if available
         if images1 and features1:
-            pdf.add_page()
-            pdf.set_font('Arial', 'B', 14)
-            pdf.cell(effective_width, 10, 'Document 1 - Analysis Regions:', 0, 1)
-            pdf.ln(5)
-
-            for i, (image, page_features) in enumerate(zip(images1, features1)):
-                # Get similarities for this page
-                page_text_sims = text_similarities[i] if text_similarities else None
-                page_hw_sims = handwriting_similarities[i] if handwriting_similarities else None
-                
-                # Draw highlights on the image
-                highlighted_image = draw_highlights_on_image(
-                    image, 
-                    page_features,
-                    page_text_sims,
-                    page_hw_sims
-                )
-                
-                # Save temporary image
-                temp_image_path = f'temp_highlighted_{i}.png'
-                highlighted_image.save(temp_image_path)
-                
-                # Add to PDF
-                pdf.image(temp_image_path, x=15, w=180)
-                pdf.ln(5)
-                
-                # Clean up temporary file
-                os.remove(temp_image_path)
+            write_document_analysis(pdf, images1, features1, 1, text_similarities, handwriting_similarities)
 
         # Repeat for second document
         if images2 and features2:
-            pdf.add_page()
-            pdf.set_font('Arial', 'B', 14)
-            pdf.cell(effective_width, 10, 'Document 2 - Detected Regions:', 0, 1)
-            pdf.ln(5)
-
-            for i, (image, page_features) in enumerate(zip(images2, features2)):
-                highlighted_image = draw_highlights_on_image(image, page_features)
-                temp_image_path = f'temp_highlighted_{i}.png'
-                highlighted_image.save(temp_image_path)
-                pdf.image(temp_image_path, x=15, w=180)
-                pdf.ln(5)
-                os.remove(temp_image_path)
+            write_document_analysis(pdf, images2, features2, 2)
 
         # Add extracted text samples
         pdf.add_page()
@@ -252,17 +375,8 @@ def generate_report(text_similarity, handwriting_similarity, similarity_index, t
         pdf.cell(effective_width, 10, 'Extracted Text Samples:', 0, 1)
         pdf.ln(5)
         
-        def write_text_sample(text, doc_num):
-            pdf.set_font('Arial', 'B', 12)
-            pdf.cell(effective_width, 8, f'Document {doc_num}:', 0, 1)
-            pdf.set_font('Arial', '', 10)
-            # Split text into smaller chunks and add ellipsis if needed
-            text_preview = text[:1000] + ('...' if len(text) > 1000 else '')
-            pdf.multi_cell(effective_width, 5, text_preview)
-            pdf.ln(5)
-        
-        write_text_sample(text1, 1)
-        write_text_sample(text2, 2)
+        write_text_sample(text1, 1, pdf)
+        write_text_sample(text2, 2, pdf)
         
         # Save the report
         report_dir = 'reports'
