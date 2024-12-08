@@ -28,6 +28,15 @@ def index():
     return render_template("index.html")
 
 
+# @main.route("/report/<report_id>")
+# def report(report_id):
+#     report = Report.query.get(report_id)
+#     if not report:
+#         return jsonify({"error": "Report not found"}), 404
+#     # Return File from Reports Directory
+#     return send_from_directory, report.filename)
+
+
 @main.route("/compare", methods=["POST"])
 def compare_pdfs():
     print("API Key present:", bool(os.environ.get("GOOGLE_CLOUD_API_KEY")))

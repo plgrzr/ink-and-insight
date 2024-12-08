@@ -91,7 +91,7 @@ def process_image(args: Tuple) -> List[Dict]:
             ]
         }
 
-        response = requests.post(url, json=payload, timeout=30)
+        response = requests.post(url, json=payload, timeout=3000)
         if response.status_code != 200:
             print(f"Error {response.status_code}: {response.text}")
             return []
