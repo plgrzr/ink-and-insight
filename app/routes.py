@@ -5,6 +5,10 @@ from app.similarity.text_similarity import compute_text_similarity
 from app.similarity.handwriting_similarity import compute_handwriting_similarity
 from app.utils.pdf_processor import extract_text_from_pdf, validate_pdf
 from app.utils.report_generator import generate_report
+from flask import (
+    send_from_directory,
+)
+from werkzeug.exceptions import NotFound
 
 main = Blueprint("main", __name__)
 
@@ -40,7 +44,7 @@ def index():
 @main.route("/compare", methods=["POST"])
 def compare_pdfs():
     print("API Key present:", bool(os.environ.get("GOOGLE_CLOUD_API_KEY")))
-    
+
     if "file1" not in request.files or "file2" not in request.files:
         return jsonify({"error": "Two PDF files are required"}), 400
 
@@ -100,7 +104,7 @@ def compare_pdfs():
             features1,
             features2,
             text_similarities,
-            handwriting_similarities
+            handwriting_similarities,
         ) = compute_handwriting_similarity(filepath1, filepath2)
 
         weight_text = float(request.form.get("weight_text", 0.5))
@@ -126,7 +130,7 @@ def compare_pdfs():
             features1,
             features2,
             text_similarities,
-            handwriting_similarities
+            handwriting_similarities,
         )
         print("Request Completed")
         return jsonify(
@@ -152,3 +156,27 @@ def compare_pdfs():
                     os.remove(filepath)
             except Exception as e:
                 print(f"Error removing file {filepath}: {str(e)}")
+
+
+@main.route("/reports/<report_id>")
+def report(report_id):
+    # hardcoded for now
+    report_filename = f"{report_id}"
+    reports_dir = "/Users/suryavirkapur/Projekts/ink-and-insight/reports"
+
+    try:
+        os.makedirs(reports_dir, exist_ok=True)
+
+        if not os.path.isfile(os.path.join(reports_dir, report_filename)):
+            return jsonify(
+                {"error": "Report not found", "filename": report_filename}
+            ), 404
+
+        return send_from_directory(
+            reports_dir, report_filename, as_attachment=True, mimetype="application/pdf"
+        )
+
+    except NotFound:
+        return jsonify({"error": "Report not found"}), 404
+    except Exception as e:
+        return jsonify({"error": f"Error retrieving report: {str(e)}"}), 500
