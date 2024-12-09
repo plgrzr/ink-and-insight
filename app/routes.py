@@ -80,8 +80,10 @@ def compare_pdfs():
             return jsonify(
                 {"error": "Could not extract text from one or both files"}
             ), 400
-
+        print(f"Extracted text from {filepath1} and {filepath2}")
+        print("Starting text similarity computation")
         text_analysis = compute_text_similarity(text1, text2)
+        print("Ending text similarity computation")
         text_similarity = text_analysis["similarity_score"]
         (
             handwriting_similarity,
@@ -104,7 +106,7 @@ def compare_pdfs():
         similarity_index = (
             weight_text * text_similarity + weight_handwriting * handwriting_similarity
         )
-
+        print("Starting report generation")
         report_path = generate_report(
             text_similarity,
             handwriting_similarity,
@@ -123,7 +125,7 @@ def compare_pdfs():
             text_similarities,
             handwriting_similarities,
         )
-
+        print("Ending report generation")
         print("Request Completed")
         return jsonify(
             {
@@ -154,11 +156,10 @@ def compare_pdfs():
 def report(report_id):
     # hardcoded for now
     report_filename = f"{report_id}"
-    reports_dir = "/Users/suryavirkapur/Projekts/ink-and-insight/reports"
+    reports_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "reports")
 
     try:
-        os.makedirs(reports_dir, exist_ok=True)
-
+        print(f"Reports dir: {os.path.join(reports_dir, report_filename)}")
         if not os.path.isfile(os.path.join(reports_dir, report_filename)):
             return jsonify(
                 {"error": "Report not found", "filename": report_filename}

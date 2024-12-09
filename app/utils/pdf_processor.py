@@ -49,59 +49,39 @@ def prepare_page_image(image) -> str:
     return base64.b64encode(img_byte_arr.getvalue()).decode()
 
 
-def create_mathpix_request(base64_image: str) -> Dict:
-    return {
-        "src": f"data:image/png;base64,{base64_image}",
-        "formats": ["text"],
-        "ocr": True,
-        "rm_spaces": True,
-        "enable_tables": True,
-        "enable_markdown": True,
-        "enable_math": True,
-        "enable_handwriting": True,
-    }
-
-
-def get_mathpix_headers() -> Dict:
-    return {
-        "app_id": os.environ.get("MATHPIX_APP_ID"),
-        "app_key": os.environ.get("MATHPIX_APP_KEY"),
-        "Content-Type": "application/json",
-    }
-
-
-def process_single_request(request_data: Dict, headers: Dict) -> requests.Response:
-    return requests.post(
-        "https://api.mathpix.com/v3/text",
-        json=request_data,
-        headers=headers,
-        timeout=60,
-    )
-
-
 def process_page(args: Tuple) -> Optional[str]:
-    image, file_path, page_num = args
+    image, page_num = args
     try:
         base64_image = prepare_page_image(image)
-        headers = get_mathpix_headers()
-        data = create_mathpix_request(base64_image)
-        print(f"Processing page {page_num+1} of {file_path}")
+        url = f"https://vision.googleapis.com/v1/images:annotate?key={os.environ.get('GOOGLE_CLOUD_API_KEY')}"
 
-        with ThreadPoolExecutor(max_workers=1) as executor:
-            future = executor.submit(process_single_request, data, headers)
-            response = future.result()
+        payload = {
+            "requests": [
+                {
+                    "image": {"content": base64_image},
+                    "features": [{"type": "DOCUMENT_TEXT_DETECTION"}],
+                }
+            ]
+        }
+
+        print(f"Processing page {page_num+1}")
+
+        response = requests.post(url, json=payload, timeout=60)
 
         if response.status_code != 200:
             print(f"Error {response.status_code}: {response.text}")
             return None
 
         result = response.json()
-        if "error" in result:
-            print(f"Mathpix error: {result.get('error')}")
-            print(f"Error info: {result.get('error_info', '')}")
+        if not result.get("responses"):
+            print(f"No text detected on page {page_num+1}")
             return None
 
-        return result.get("text", "")
+        text_annotation = result["responses"][0].get("fullTextAnnotation")
+        if not text_annotation:
+            return None
+
+        return text_annotation.get("text", "")
 
     except Exception as e:
         print(f"Error processing page {page_num+1}: {str(e)}")
@@ -117,8 +97,7 @@ def convert_pdf_to_images(file_path: str) -> List:
 def process_pdf_pages(file_path: str, images: List) -> List[str]:
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         futures = [
-            executor.submit(process_page, (image, file_path, i))
-            for i, image in enumerate(images)
+            executor.submit(process_page, (image, i)) for i, image in enumerate(images)
         ]
         return [
             result
