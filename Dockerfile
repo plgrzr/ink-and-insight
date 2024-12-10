@@ -1,18 +1,15 @@
-
-FROM ghcr.io/astral-sh/uv:python3.10-bookworm-slim
-
+FROM python:3.12-slim-bookworm
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app
-
 
 RUN apt-get update && apt-get install -y \
     poppler-utils \
     && rm -rf /var/lib/apt/lists/*
 
-
 COPY requirements.txt .
 
-RUN uv pip install -r requirements.txt
+RUN uv pip install -r requirements.txt --system
 
 COPY . .
 

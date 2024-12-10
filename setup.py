@@ -27,6 +27,7 @@ def download_nltk_data():
             "punkt",
             "stopwords",
             "wordnet",
+            "punkt_tab",
             "averaged_perceptron_tagger",
         ]
 
@@ -67,3 +68,4 @@ def download_nltk_data():
 
 if __name__ == "__main__":
     download_nltk_data()
+    nltk.download("punkt_tab")
